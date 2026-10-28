@@ -3,6 +3,7 @@ import { ArrowUpRight, Terminal, Sparkles, Activity } from 'lucide-react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { PORTFOLIO_CONFIG } from '../../config/portfolioConfig'
+import { ScrambleHover, UnderlineAnimation } from '../fancy'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -204,7 +205,7 @@ export function ProjectsSection() {
             <div className="flex items-center gap-3 font-mono-code text-[10px] sm:text-[11px] uppercase tracking-[0.25em] text-zinc-500">
               <span className="text-white">03</span>
               <span className="w-8 h-[1px] bg-zinc-700" />
-              <span>Architectural Exhibit</span>
+              <ScrambleHover text="Architectural Exhibit" scrambleSpeed={30} maxIterations={8} />
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
               <span className="text-zinc-600 hidden md:inline">CURVED 3D PROJECTION</span>
             </div>
@@ -329,7 +330,7 @@ export function ProjectsSection() {
                         {/* Top Metadata Row */}
                         <div className="flex items-center justify-between font-mono-code text-xs text-zinc-500 border-b border-white/[0.08] pb-2">
                           <div className="flex items-center gap-2">
-                            <span className="text-white font-semibold">№ 0{index + 1}</span>
+                            <ScrambleHover text={`№ 0${index + 1}`} scrambleSpeed={20} maxIterations={5} className="text-white font-semibold" />
                             <span className="w-3 h-[1px] bg-zinc-700" />
                             <span className="uppercase tracking-widest text-[10px] text-zinc-400">
                               {project.category}
@@ -377,9 +378,9 @@ export function ProjectsSection() {
                               aria-label={`Inspect source for ${project.title}`}
                               className="inline-flex items-center gap-1 font-mono-code text-xs text-white hover:text-zinc-300 group/link"
                             >
-                              <span className="underline underline-offset-4 decoration-white/40 group-hover/link:decoration-white">
+                              <UnderlineAnimation direction="left">
                                 Inspect
-                              </span>
+                              </UnderlineAnimation>
                               <ArrowUpRight className="w-3.5 h-3.5 transition-transform group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5" />
                             </a>
                           )}
@@ -398,9 +399,7 @@ export function ProjectsSection() {
                             <Activity className="w-3 h-3 text-zinc-500" />
                             {telemetry.badge}
                           </span>
-                          <span className="text-white font-semibold tracking-wider">
-                            {telemetry.metric}
-                          </span>
+                          <ScrambleHover text={telemetry.metric} scrambleSpeed={25} maxIterations={6} className="text-white font-semibold tracking-wider" />
                         </div>
 
                         <div className="text-[10px] text-zinc-400 leading-normal line-clamp-2">
@@ -487,7 +486,7 @@ export function ProjectsSection() {
                     <div className="p-3 bg-black/80 border border-white/[0.08] font-mono-code text-[10px] text-zinc-400 space-y-1.5">
                       <div className="flex justify-between text-zinc-500">
                         <span>{telemetry.badge}</span>
-                        <span className="text-white">{telemetry.metric}</span>
+                        <ScrambleHover text={telemetry.metric} scrambleSpeed={25} maxIterations={6} className="text-white" />
                       </div>
                       <div className="text-zinc-300 truncate">
                         <code>{telemetry.codeSnippet}</code>
@@ -511,10 +510,12 @@ export function ProjectsSection() {
                           href={project.githubUrl}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="inline-flex items-center gap-1 font-mono-code text-xs text-white underline underline-offset-4"
+                          className="inline-flex items-center gap-1 font-mono-code text-xs text-white group"
                         >
-                          <span>Inspect</span>
-                          <ArrowUpRight className="w-3 h-3" />
+                          <UnderlineAnimation direction="left">
+                            Inspect
+                          </UnderlineAnimation>
+                          <ArrowUpRight className="w-3 h-3 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                         </a>
                       )}
                     </div>

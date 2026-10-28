@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef } from 'react'
 import { motion, type Variants } from 'framer-motion'
 import { PORTFOLIO_CONFIG } from '../../config/portfolioConfig'
+import { ScrambleHover } from '../fancy'
 
 const revealVariant: Variants = {
   hidden: { opacity: 0, y: 28 },
@@ -91,7 +92,7 @@ export function AboutSection() {
               style={{ width: `${Math.round(scrollYProgress * 100)}%` }}
             />
           </span>
-          <span>ABOUT ME</span>
+          <ScrambleHover text="ABOUT ME" scrambleSpeed={30} maxIterations={8} />
         </div>
         <div className="font-mono-code text-[11px] text-zinc-500 uppercase tracking-widest">
           <span>Engineering Philosophy / Personal Index</span>
@@ -110,7 +111,7 @@ export function AboutSection() {
         >
           <div className="space-y-5">
             <p className="font-mono-code text-xs uppercase tracking-[0.25em] text-zinc-500">
-              [ 01 // CORE ETHOS ]
+              <ScrambleHover text="[ 01 // CORE ETHOS ]" scrambleSpeed={25} maxIterations={8} />
             </p>
             <h2 className="font-serif-luxury text-2xl sm:text-4xl lg:text-[2.75rem] font-medium text-white tracking-wide leading-[1.25]">
               Engineering digital experiences with uncompromising rigor and spatial depth.
@@ -120,7 +121,7 @@ export function AboutSection() {
           {/* Capabilities List */}
           <div className="space-y-6 pt-6 border-t border-white/[0.08]">
             <p className="font-mono-code text-xs uppercase tracking-[0.25em] text-zinc-500 mb-6">
-              [ 02 // TECHNICAL FOCUS ]
+              <ScrambleHover text="[ 02 // TECHNICAL FOCUS ]" scrambleSpeed={25} maxIterations={8} />
             </p>
             <motion.div
               initial="hidden"
@@ -137,7 +138,7 @@ export function AboutSection() {
                 >
                   <div className="flex items-baseline gap-4 mb-2">
                     <span className="font-mono-code text-xs text-zinc-500 font-semibold">
-                      {cap.num}
+                      <ScrambleHover text={cap.num} scrambleSpeed={20} maxIterations={6} />
                     </span>
                     <h3 className="font-serif-luxury text-lg sm:text-xl font-medium text-white tracking-wide group-hover:text-zinc-300 transition-colors">
                       {cap.title}
@@ -162,7 +163,7 @@ export function AboutSection() {
         >
           <div className="space-y-6">
             <p className="font-mono-code text-xs uppercase tracking-[0.25em] text-zinc-500">
-              [ 03 // NARRATIVE ]
+              <ScrambleHover text="[ 03 // NARRATIVE ]" scrambleSpeed={25} maxIterations={8} />
             </p>
             
             {/* High-contrast opening statement */}
@@ -184,7 +185,7 @@ export function AboutSection() {
           {/* Operational Metadata Grid */}
           <div className="pt-8 border-t border-white/[0.08] space-y-4">
             <p className="font-mono-code text-xs uppercase tracking-[0.25em] text-zinc-500 mb-6">
-              [ 04 // OPERATIONAL METADATA ]
+              <ScrambleHover text="[ 04 // OPERATIONAL METADATA ]" scrambleSpeed={25} maxIterations={8} />
             </p>
             <motion.div
               initial="hidden"
@@ -200,7 +201,7 @@ export function AboutSection() {
                   className="p-5 bg-zinc-950/60 border border-white/[0.08] space-y-1 hover:border-white/20 transition-colors duration-200"
                 >
                   <span className="block font-mono-code text-[10px] text-zinc-500 uppercase tracking-widest">
-                    {item.label}
+                    <ScrambleHover text={item.label} scrambleSpeed={25} maxIterations={6} />
                   </span>
                   <span className="block font-mono-code text-xs text-white tracking-wide">
                     {item.value}

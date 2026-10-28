@@ -1,6 +1,7 @@
 import { ArrowUpRight, RotateCcw, Sparkles } from 'lucide-react'
 import { PORTFOLIO_CONFIG } from '../../config/portfolioConfig'
 import { AsciiWordmarkCanvas } from '../canvas/AsciiWordmarkCanvas'
+import { LetterSwap, UnderlineAnimation } from '../fancy'
 
 const CURRENT_YEAR = new Date().getFullYear()
 
@@ -111,7 +112,9 @@ export function Footer({ onReplayIntro }: FooterProps) {
                     className="text-zinc-400 hover:text-white transition-colors duration-200 inline-flex items-center gap-2 group"
                   >
                     <span className="text-zinc-600 group-hover:text-white transition-colors">→</span>
-                    <span>{item.label}</span>
+                    <UnderlineAnimation direction="left">
+                      {item.label}
+                    </UnderlineAnimation>
                   </a>
                 </li>
               ))}
@@ -132,7 +135,7 @@ export function Footer({ onReplayIntro }: FooterProps) {
                   rel="noopener noreferrer"
                   className="group inline-flex items-center gap-1.5 px-3 py-1.5 border border-white/10 hover:border-white/30 text-zinc-300 hover:text-white transition-colors duration-200 bg-zinc-950/60"
                 >
-                  <span>{link.label}</span>
+                  <LetterSwap label={link.label} mode="pingpong" />
                   <ArrowUpRight className="w-3.5 h-3.5 text-zinc-500 group-hover:text-white transition-colors duration-200" />
                 </a>
               ))}
@@ -143,19 +146,21 @@ export function Footer({ onReplayIntro }: FooterProps) {
                 <button
                   type="button"
                   onClick={onReplayIntro}
-                  className="inline-flex items-center gap-1.5 text-zinc-400 hover:text-white transition-colors duration-200 uppercase tracking-widest cursor-pointer"
+                  className="group inline-flex items-center gap-1.5 text-zinc-400 hover:text-white transition-colors duration-200 uppercase tracking-widest cursor-pointer"
                 >
-                  <RotateCcw className="w-3.5 h-3.5" />
-                  <span>Replay Intro</span>
+                  <RotateCcw className="w-3.5 h-3.5 group-hover:rotate-180 transition-transform duration-500" />
+                  <LetterSwap label="Replay Intro" mode="forward" />
                 </button>
               )}
 
               <button
                 type="button"
                 onClick={scrollToTop}
-                className="text-zinc-500 hover:text-white transition-colors duration-200 uppercase tracking-widest cursor-pointer pl-3 border-l border-white/10"
+                className="group text-zinc-500 hover:text-white transition-colors duration-200 uppercase tracking-widest cursor-pointer pl-3 border-l border-white/10"
               >
-                Back to Top ↑
+                <UnderlineAnimation direction="left">
+                  Back to Top ↑
+                </UnderlineAnimation>
               </button>
             </div>
           </div>

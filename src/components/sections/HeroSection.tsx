@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef } from 'react'
 import { RotateCcw } from 'lucide-react'
 import { PORTFOLIO_CONFIG } from '../../config/portfolioConfig'
+import { LetterSwap, ScrambleHover } from '../fancy'
 
 interface HeroSectionProps {
   onReplayIntro?: () => void
@@ -30,16 +31,20 @@ export function HeroSection({ onReplayIntro }: HeroSectionProps) {
       className="relative w-full min-h-screen flex flex-col justify-between px-4 sm:px-12 lg:px-20 pt-20 sm:pt-24 lg:pt-24 pb-6 sm:pb-8 max-w-7xl mx-auto overflow-hidden pointer-events-none"
     >
       {/* Top Quiet Meta Row (Positioned with intentional clearance below Spotlight Navbar) */}
-      <div className="w-full flex items-center justify-between text-[10px] sm:text-[11px] font-mono-code text-zinc-500 uppercase tracking-widest pt-1 pb-2 select-none">
+      <div className="w-full flex items-center justify-between text-[10px] sm:text-[11px] font-mono-code text-zinc-500 uppercase tracking-widest pt-1 pb-2 select-none pointer-events-auto">
         <div className="flex items-center gap-2 sm:gap-3 max-w-[85vw] sm:max-w-none">
           <span className="w-1.5 h-1.5 rounded-full bg-emerald-500/80 animate-pulse flex-shrink-0" />
-          <span className="text-zinc-400 truncate sm:hidden">Creative Developer</span>
-          <span className="text-zinc-400 hidden sm:inline">{PORTFOLIO_CONFIG.personal.title}</span>
+          <span className="text-zinc-400 truncate sm:hidden">
+            <ScrambleHover text="Creative Developer" scrambleSpeed={35} maxIterations={8} />
+          </span>
+          <span className="text-zinc-400 hidden sm:inline">
+            <ScrambleHover text={PORTFOLIO_CONFIG.personal.title} scrambleSpeed={35} maxIterations={8} />
+          </span>
         </div>
         <div className="hidden sm:flex items-center gap-5 text-zinc-500 flex-shrink-0">
-          <span>Three.js + GLSL</span>
+          <ScrambleHover text="Three.js + GLSL" scrambleSpeed={30} maxIterations={8} />
           <span className="text-zinc-700">|</span>
-          <span>{PORTFOLIO_CONFIG.personal.location}</span>
+          <ScrambleHover text={PORTFOLIO_CONFIG.personal.location} scrambleSpeed={30} maxIterations={8} />
         </div>
       </div>
 
@@ -88,10 +93,12 @@ export function HeroSection({ onReplayIntro }: HeroSectionProps) {
             type="button"
             onClick={onReplayIntro}
             aria-label="Replay Cinematic Introduction"
-            className="inline-flex items-center gap-2 px-3 py-1.5 text-[11px] font-mono-code uppercase tracking-wider text-zinc-500 hover:text-white bg-black/60 backdrop-blur-md border border-white/10 hover:border-white/30 rounded-full transition-all duration-200 cursor-pointer"
+            className="group inline-flex items-center gap-2 px-3 py-1.5 text-[11px] font-mono-code uppercase tracking-wider text-zinc-500 hover:text-white bg-black/60 backdrop-blur-md border border-white/10 hover:border-white/30 rounded-full transition-all duration-200 cursor-pointer"
           >
-            <RotateCcw className="w-3 h-3" />
-            <span className="hidden sm:inline">Replay Intro</span>
+            <RotateCcw className="w-3 h-3 group-hover:rotate-180 transition-transform duration-500" />
+            <span className="hidden sm:inline">
+              <LetterSwap label="Replay Intro" mode="forward" />
+            </span>
           </button>
         </div>
       )}

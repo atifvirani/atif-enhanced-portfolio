@@ -2,6 +2,7 @@ import { useState, type FormEvent } from 'react'
 import { motion, type Variants } from 'framer-motion'
 import { ArrowUpRight, Send, Copy, Check } from 'lucide-react'
 import { PORTFOLIO_CONFIG } from '../../config/portfolioConfig'
+import { LetterSwap, ScrambleHover, UnderlineAnimation } from '../fancy'
 
 const revealVariant: Variants = {
   hidden: { opacity: 0, y: 28 },
@@ -68,7 +69,7 @@ export function ContactSection() {
       >
         <span>06</span>
         <span className="w-8 h-[1px] bg-zinc-700" />
-        <span>Initiate Collaboration</span>
+        <ScrambleHover text="Initiate Collaboration" scrambleSpeed={30} maxIterations={8} />
       </motion.div>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-14 lg:gap-16 items-start">
@@ -105,10 +106,12 @@ export function ContactSection() {
               <div className="flex flex-wrap items-center gap-3">
                 <a
                   href={`mailto:${PORTFOLIO_CONFIG.personal.email}`}
-                  className="text-white hover:text-zinc-300 text-sm tracking-wider inline-flex items-center gap-2 underline underline-offset-4"
+                  className="text-white hover:text-zinc-300 text-sm tracking-wider inline-flex items-center gap-2 group"
                 >
-                  <span>{PORTFOLIO_CONFIG.personal.email}</span>
-                  <ArrowUpRight className="w-4 h-4 text-zinc-500" />
+                  <UnderlineAnimation direction="left">
+                    {PORTFOLIO_CONFIG.personal.email}
+                  </UnderlineAnimation>
+                  <ArrowUpRight className="w-4 h-4 text-zinc-500 group-hover:text-white transition-colors" />
                 </a>
                 <button
                   type="button"
@@ -131,10 +134,10 @@ export function ContactSection() {
                     href={link.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 px-3 py-1.5 border border-white/10 hover:border-white/30 text-xs font-mono-code text-zinc-300 hover:text-white transition-colors duration-200"
+                    className="group inline-flex items-center gap-1.5 px-3 py-1.5 border border-white/10 hover:border-white/30 text-xs font-mono-code text-zinc-300 hover:text-white transition-colors duration-200"
                   >
-                    <span>{link.label}</span>
-                    <ArrowUpRight className="w-3.5 h-3.5 text-zinc-500" />
+                    <LetterSwap label={link.label} mode="pingpong" />
+                    <ArrowUpRight className="w-3.5 h-3.5 text-zinc-500 group-hover:text-white group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                   </a>
                 ))}
               </div>
