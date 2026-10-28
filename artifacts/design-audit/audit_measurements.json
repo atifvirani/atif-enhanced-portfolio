@@ -1,0 +1,1345 @@
+{
+  "metadata": {
+    "generatedAt": "2026-10-26T16:26:01.568Z",
+    "leadAuditor": "Senior Digital Art Director & Visual QA Lead",
+    "applicationUrl": "http://localhost:5173/",
+    "viewportsTested": [
+      "1920x1080",
+      "1440x900",
+      "1366x768",
+      "768x1024",
+      "390x844",
+      "320x700"
+    ],
+    "totalScreenshots": 59,
+    "nodeVersion": "v22.23.2",
+    "browser": "Chrome/156.0.8078.47"
+  },
+  "forensicData": {
+    "viewport": {
+      "width": 1440,
+      "height": 900,
+      "dpr": 1
+    },
+    "document": {
+      "scrollWidth": 1434,
+      "scrollHeight": 8765,
+      "title": "Atif — Creative Developer & Digital Architect"
+    },
+    "sections": [
+      {
+        "id": "top",
+        "offsetTop": 0,
+        "offsetHeight": 836,
+        "rect": {
+          "x": 77,
+          "y": 64,
+          "width": 1280,
+          "height": 836
+        },
+        "padding": "12px 80px 32px",
+        "margin": "0px 77px",
+        "borderTop": "0px solid rgb(255, 255, 255)",
+        "backgroundColor": "rgba(0, 0, 0, 0)"
+      },
+      {
+        "id": "about",
+        "offsetTop": 900,
+        "offsetHeight": 1250,
+        "rect": {
+          "x": 77,
+          "y": 900,
+          "width": 1280,
+          "height": 1250
+        },
+        "padding": "128px 80px",
+        "margin": "0px 77px",
+        "borderTop": "1px solid oklab(0.999994 0.0000455678 0.0000200868 / 0.08)",
+        "backgroundColor": "rgba(0, 0, 0, 0)"
+      },
+      {
+        "id": "works",
+        "offsetTop": 2150,
+        "offsetHeight": 2881,
+        "rect": {
+          "x": 0,
+          "y": 2150,
+          "width": 1434,
+          "height": 2881
+        },
+        "padding": "0px",
+        "margin": "0px",
+        "borderTop": "1px solid oklab(0.999994 0.0000455678 0.0000200868 / 0.08)",
+        "backgroundColor": "rgb(0, 0, 0)"
+      },
+      {
+        "id": "skills",
+        "offsetTop": 5031,
+        "offsetHeight": 1113,
+        "rect": {
+          "x": 77,
+          "y": 5031,
+          "width": 1280,
+          "height": 1113
+        },
+        "padding": "128px 80px",
+        "margin": "0px 77px",
+        "borderTop": "1px solid oklab(0.999994 0.0000455678 0.0000200868 / 0.08)",
+        "backgroundColor": "rgba(0, 0, 0, 0)"
+      },
+      {
+        "id": "journey",
+        "offsetTop": 6144,
+        "offsetHeight": 1322,
+        "rect": {
+          "x": 77,
+          "y": 6144,
+          "width": 1280,
+          "height": 1322
+        },
+        "padding": "128px 80px",
+        "margin": "0px 77px",
+        "borderTop": "1px solid oklab(0.999994 0.0000455678 0.0000200868 / 0.08)",
+        "backgroundColor": "rgba(0, 0, 0, 0)"
+      },
+      {
+        "id": "contact",
+        "offsetTop": 7466,
+        "offsetHeight": 953,
+        "rect": {
+          "x": 77,
+          "y": 7466,
+          "width": 1280,
+          "height": 953
+        },
+        "padding": "144px 80px",
+        "margin": "0px 77px",
+        "borderTop": "1px solid oklab(0.999994 0.0000455678 0.0000200868 / 0.08)",
+        "backgroundColor": "rgba(0, 0, 0, 0)"
+      }
+    ],
+    "elements": [
+      {
+        "selector": "header",
+        "label": "Navbar Container (Header)",
+        "x": 541,
+        "y": 20,
+        "width": 353,
+        "height": 41,
+        "top": 20,
+        "bottom": 61,
+        "left": 541,
+        "right": 894,
+        "computedStyle": {
+          "display": "block",
+          "position": "fixed",
+          "fontFamily": "-apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, \"Helvetica Neue\", \"Noto Sans\", Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\"",
+          "fontSize": "16px",
+          "fontWeight": "400",
+          "lineHeight": "24px",
+          "letterSpacing": "normal",
+          "textTransform": "none",
+          "textAlign": "start",
+          "color": "rgb(255, 255, 255)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "border": "0px solid rgb(255, 255, 255)",
+          "borderRadius": "0px",
+          "padding": "0px",
+          "margin": "0px",
+          "zIndex": "50",
+          "opacity": "1",
+          "transform": "none",
+          "backdropFilter": "none"
+        }
+      },
+      {
+        "selector": "nav[aria-label=\"Primary Navigation Dock\"]",
+        "label": "Navbar Dock Element",
+        "x": 541,
+        "y": 20,
+        "width": 353,
+        "height": 41,
+        "top": 20,
+        "bottom": 61,
+        "left": 541,
+        "right": 894,
+        "computedStyle": {
+          "display": "flex",
+          "position": "relative",
+          "fontFamily": "-apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, \"Helvetica Neue\", \"Noto Sans\", Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\"",
+          "fontSize": "16px",
+          "fontWeight": "400",
+          "lineHeight": "24px",
+          "letterSpacing": "normal",
+          "textTransform": "none",
+          "textAlign": "start",
+          "color": "rgb(255, 255, 255)",
+          "backgroundColor": "oklab(0.141 0.00136333 -0.00481054 / 0.9)",
+          "border": "1px solid oklab(0.999994 0.0000455678 0.0000200868 / 0.1)",
+          "borderRadius": "3.35544e+07px",
+          "padding": "4px 10px",
+          "margin": "0px",
+          "zIndex": "auto",
+          "opacity": "1",
+          "transform": "none",
+          "backdropFilter": "blur(40px)"
+        }
+      },
+      {
+        "selector": "#top",
+        "label": "Hero Section Container",
+        "x": 77,
+        "y": 64,
+        "width": 1280,
+        "height": 836,
+        "top": 64,
+        "bottom": 900,
+        "left": 77,
+        "right": 1357,
+        "computedStyle": {
+          "display": "flex",
+          "position": "relative",
+          "fontFamily": "-apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, \"Helvetica Neue\", \"Noto Sans\", Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\"",
+          "fontSize": "16px",
+          "fontWeight": "400",
+          "lineHeight": "24px",
+          "letterSpacing": "normal",
+          "textTransform": "none",
+          "textAlign": "start",
+          "color": "rgb(255, 255, 255)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "border": "0px solid rgb(255, 255, 255)",
+          "borderRadius": "0px",
+          "padding": "12px 80px 32px",
+          "margin": "0px 77px",
+          "zIndex": "auto",
+          "opacity": "1",
+          "transform": "none",
+          "backdropFilter": "none"
+        }
+      },
+      {
+        "selector": "#top h1",
+        "label": "Hero Heading (ATIF)",
+        "x": 620,
+        "y": 722,
+        "width": 195,
+        "height": 64,
+        "top": 722,
+        "bottom": 786,
+        "left": 620,
+        "right": 814,
+        "computedStyle": {
+          "display": "block",
+          "position": "relative",
+          "fontFamily": "Cinzel, \"Cormorant Garamond\", Georgia, serif",
+          "fontSize": "64px",
+          "fontWeight": "500",
+          "lineHeight": "64px",
+          "letterSpacing": "11.52px",
+          "textTransform": "none",
+          "textAlign": "center",
+          "color": "rgb(203, 213, 225)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "border": "0px solid rgb(203, 213, 225)",
+          "borderRadius": "0px",
+          "padding": "0px 0px 0px 11.52px",
+          "margin": "0px",
+          "zIndex": "auto",
+          "opacity": "1",
+          "transform": "none",
+          "backdropFilter": "none"
+        }
+      },
+      {
+        "selector": "#top p",
+        "label": "Hero Subtitle (MOHAMMED)",
+        "x": 672,
+        "y": 698,
+        "width": 91,
+        "height": 16,
+        "top": 698,
+        "bottom": 714,
+        "left": 672,
+        "right": 762,
+        "computedStyle": {
+          "display": "block",
+          "position": "static",
+          "fontFamily": "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace",
+          "fontSize": "12px",
+          "fontWeight": "400",
+          "lineHeight": "16px",
+          "letterSpacing": "4.2px",
+          "textTransform": "uppercase",
+          "textAlign": "center",
+          "color": "rgb(148, 163, 184)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "border": "0px solid rgb(148, 163, 184)",
+          "borderRadius": "0px",
+          "padding": "0px 0px 0px 4.2px",
+          "margin": "0px 0px 8px",
+          "zIndex": "auto",
+          "opacity": "1",
+          "transform": "none",
+          "backdropFilter": "none"
+        }
+      },
+      {
+        "selector": "#top .select-none div:first-child",
+        "label": "Hero Top Meta Row",
+        "x": 157,
+        "y": 80,
+        "width": 361,
+        "height": 17,
+        "top": 80,
+        "bottom": 97,
+        "left": 157,
+        "right": 518,
+        "computedStyle": {
+          "display": "flex",
+          "position": "static",
+          "fontFamily": "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace",
+          "fontSize": "11px",
+          "fontWeight": "400",
+          "lineHeight": "16.5px",
+          "letterSpacing": "1.1px",
+          "textTransform": "uppercase",
+          "textAlign": "start",
+          "color": "oklch(0.552 0.016 285.938)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "border": "0px solid oklch(0.552 0.016 285.938)",
+          "borderRadius": "0px",
+          "padding": "0px",
+          "margin": "0px",
+          "zIndex": "auto",
+          "opacity": "1",
+          "transform": "none",
+          "backdropFilter": "none"
+        }
+      },
+      {
+        "selector": "#top a[href=\"#about\"]",
+        "label": "Hero Scroll Indicator Pill",
+        "x": 709,
+        "y": 802,
+        "width": 16,
+        "height": 50,
+        "top": 802,
+        "bottom": 852,
+        "left": 709,
+        "right": 725,
+        "computedStyle": {
+          "display": "flex",
+          "position": "static",
+          "fontFamily": "-apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, \"Helvetica Neue\", \"Noto Sans\", Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\"",
+          "fontSize": "16px",
+          "fontWeight": "400",
+          "lineHeight": "24px",
+          "letterSpacing": "normal",
+          "textTransform": "none",
+          "textAlign": "start",
+          "color": "rgb(255, 255, 255)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "border": "0px solid rgb(255, 255, 255)",
+          "borderRadius": "0px",
+          "padding": "0px",
+          "margin": "0px",
+          "zIndex": "auto",
+          "opacity": "1",
+          "transform": "none",
+          "backdropFilter": "none"
+        }
+      },
+      {
+        "selector": "canvas",
+        "label": "WebGL Particle Canvas (Three.js)",
+        "x": 0,
+        "y": 0,
+        "width": 1434,
+        "height": 900,
+        "top": 0,
+        "bottom": 900,
+        "left": 0,
+        "right": 1434,
+        "computedStyle": {
+          "display": "block",
+          "position": "absolute",
+          "fontFamily": "Inter, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, sans-serif",
+          "fontSize": "16px",
+          "fontWeight": "400",
+          "lineHeight": "24px",
+          "letterSpacing": "normal",
+          "textTransform": "none",
+          "textAlign": "start",
+          "color": "rgb(255, 255, 255)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "border": "0px solid rgb(255, 255, 255)",
+          "borderRadius": "0px",
+          "padding": "0px",
+          "margin": "0px",
+          "zIndex": "auto",
+          "opacity": "1",
+          "transform": "none",
+          "backdropFilter": "none"
+        }
+      },
+      {
+        "selector": "#about",
+        "label": "About Section Container",
+        "x": 77,
+        "y": 900,
+        "width": 1280,
+        "height": 1250,
+        "top": 900,
+        "bottom": 2150,
+        "left": 77,
+        "right": 1357,
+        "computedStyle": {
+          "display": "block",
+          "position": "relative",
+          "fontFamily": "-apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, \"Helvetica Neue\", \"Noto Sans\", Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\"",
+          "fontSize": "16px",
+          "fontWeight": "400",
+          "lineHeight": "24px",
+          "letterSpacing": "normal",
+          "textTransform": "none",
+          "textAlign": "start",
+          "color": "rgb(255, 255, 255)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "border": "",
+          "borderRadius": "0px",
+          "padding": "128px 80px",
+          "margin": "0px 77px",
+          "zIndex": "auto",
+          "opacity": "1",
+          "transform": "none",
+          "backdropFilter": "none"
+        }
+      },
+      {
+        "selector": "#about .text-white.font-semibold",
+        "label": "About Section Number",
+        "x": 157,
+        "y": 1057,
+        "width": 19,
+        "height": 16,
+        "top": 1057,
+        "bottom": 1073,
+        "left": 157,
+        "right": 176,
+        "computedStyle": {
+          "display": "block",
+          "position": "static",
+          "fontFamily": "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace",
+          "fontSize": "12px",
+          "fontWeight": "600",
+          "lineHeight": "16px",
+          "letterSpacing": "3px",
+          "textTransform": "uppercase",
+          "textAlign": "start",
+          "color": "rgb(255, 255, 255)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "border": "0px solid rgb(255, 255, 255)",
+          "borderRadius": "0px",
+          "padding": "0px",
+          "margin": "0px",
+          "zIndex": "auto",
+          "opacity": "1",
+          "transform": "none",
+          "backdropFilter": "none"
+        }
+      },
+      {
+        "selector": "#about .text-zinc-500",
+        "label": "About Section Label",
+        "x": 157,
+        "y": 1057,
+        "width": 160,
+        "height": 16,
+        "top": 1057,
+        "bottom": 1073,
+        "left": 157,
+        "right": 317,
+        "computedStyle": {
+          "display": "flex",
+          "position": "static",
+          "fontFamily": "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace",
+          "fontSize": "12px",
+          "fontWeight": "400",
+          "lineHeight": "16px",
+          "letterSpacing": "3px",
+          "textTransform": "uppercase",
+          "textAlign": "start",
+          "color": "oklch(0.552 0.016 285.938)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "border": "0px solid oklch(0.552 0.016 285.938)",
+          "borderRadius": "0px",
+          "padding": "0px",
+          "margin": "0px",
+          "zIndex": "auto",
+          "opacity": "1",
+          "transform": "none",
+          "backdropFilter": "none"
+        }
+      },
+      {
+        "selector": "#works",
+        "label": "Projects Section Container",
+        "x": 0,
+        "y": 2150,
+        "width": 1434,
+        "height": 2881,
+        "top": 2150,
+        "bottom": 5031,
+        "left": 0,
+        "right": 1434,
+        "computedStyle": {
+          "display": "block",
+          "position": "relative",
+          "fontFamily": "-apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, \"Helvetica Neue\", \"Noto Sans\", Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\"",
+          "fontSize": "16px",
+          "fontWeight": "400",
+          "lineHeight": "24px",
+          "letterSpacing": "normal",
+          "textTransform": "none",
+          "textAlign": "start",
+          "color": "rgb(255, 255, 255)",
+          "backgroundColor": "rgb(0, 0, 0)",
+          "border": "",
+          "borderRadius": "0px",
+          "padding": "0px",
+          "margin": "0px",
+          "zIndex": "auto",
+          "opacity": "1",
+          "transform": "none",
+          "backdropFilter": "none"
+        }
+      },
+      {
+        "selector": "#works h2",
+        "label": "Projects Section Title",
+        "x": 125,
+        "y": 2286,
+        "width": 628,
+        "height": 48,
+        "top": 2286,
+        "bottom": 2334,
+        "left": 125,
+        "right": 753,
+        "computedStyle": {
+          "display": "flex",
+          "position": "static",
+          "fontFamily": "Cinzel, \"Cormorant Garamond\", Georgia, serif",
+          "fontSize": "48px",
+          "fontWeight": "500",
+          "lineHeight": "48px",
+          "letterSpacing": "-1.2px",
+          "textTransform": "none",
+          "textAlign": "start",
+          "color": "rgb(255, 255, 255)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "border": "0px solid rgb(255, 255, 255)",
+          "borderRadius": "0px",
+          "padding": "0px",
+          "margin": "0px",
+          "zIndex": "auto",
+          "opacity": "1",
+          "transform": "none",
+          "backdropFilter": "none"
+        }
+      },
+      {
+        "selector": "#works .curved-tile-wrapper",
+        "label": "Projects First Tile",
+        "x": 107,
+        "y": 2563,
+        "width": 338,
+        "height": 274,
+        "top": 2563,
+        "bottom": 2836,
+        "left": 107,
+        "right": 445,
+        "computedStyle": {
+          "display": "block",
+          "position": "static",
+          "fontFamily": "-apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, \"Helvetica Neue\", \"Noto Sans\", Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\"",
+          "fontSize": "16px",
+          "fontWeight": "400",
+          "lineHeight": "24px",
+          "letterSpacing": "normal",
+          "textTransform": "none",
+          "textAlign": "start",
+          "color": "rgb(255, 255, 255)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "border": "0px solid rgb(255, 255, 255)",
+          "borderRadius": "0px",
+          "padding": "0px",
+          "margin": "0px",
+          "zIndex": "auto",
+          "opacity": "0",
+          "transform": "matrix(0.94, 0, 0, 0.94, 0, 40)",
+          "backdropFilter": "none"
+        }
+      },
+      {
+        "selector": "#skills",
+        "label": "Skills Section Container",
+        "x": 77,
+        "y": 5031,
+        "width": 1280,
+        "height": 1113,
+        "top": 5031,
+        "bottom": 6144,
+        "left": 77,
+        "right": 1357,
+        "computedStyle": {
+          "display": "block",
+          "position": "relative",
+          "fontFamily": "-apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, \"Helvetica Neue\", \"Noto Sans\", Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\"",
+          "fontSize": "16px",
+          "fontWeight": "400",
+          "lineHeight": "24px",
+          "letterSpacing": "normal",
+          "textTransform": "none",
+          "textAlign": "start",
+          "color": "rgb(255, 255, 255)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "border": "",
+          "borderRadius": "0px",
+          "padding": "128px 80px",
+          "margin": "0px 77px",
+          "zIndex": "auto",
+          "opacity": "1",
+          "transform": "none",
+          "backdropFilter": "none"
+        }
+      },
+      {
+        "selector": "#skills h2",
+        "label": "Skills Section Title",
+        "x": 157,
+        "y": 5216,
+        "width": 491,
+        "height": 48,
+        "top": 5216,
+        "bottom": 5264,
+        "left": 157,
+        "right": 648,
+        "computedStyle": {
+          "display": "block",
+          "position": "static",
+          "fontFamily": "Cinzel, \"Cormorant Garamond\", Georgia, serif",
+          "fontSize": "48px",
+          "fontWeight": "500",
+          "lineHeight": "48px",
+          "letterSpacing": "-1.2px",
+          "textTransform": "none",
+          "textAlign": "start",
+          "color": "rgb(255, 255, 255)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "border": "0px solid rgb(255, 255, 255)",
+          "borderRadius": "0px",
+          "padding": "0px",
+          "margin": "0px",
+          "zIndex": "auto",
+          "opacity": "1",
+          "transform": "none",
+          "backdropFilter": "none"
+        }
+      },
+      {
+        "selector": "#journey",
+        "label": "Journey Section Container",
+        "x": 77,
+        "y": 6144,
+        "width": 1280,
+        "height": 1322,
+        "top": 6144,
+        "bottom": 7466,
+        "left": 77,
+        "right": 1357,
+        "computedStyle": {
+          "display": "block",
+          "position": "relative",
+          "fontFamily": "-apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, \"Helvetica Neue\", \"Noto Sans\", Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\"",
+          "fontSize": "16px",
+          "fontWeight": "400",
+          "lineHeight": "24px",
+          "letterSpacing": "normal",
+          "textTransform": "none",
+          "textAlign": "start",
+          "color": "rgb(255, 255, 255)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "border": "",
+          "borderRadius": "0px",
+          "padding": "128px 80px",
+          "margin": "0px 77px",
+          "zIndex": "auto",
+          "opacity": "1",
+          "transform": "none",
+          "backdropFilter": "none"
+        }
+      },
+      {
+        "selector": "#journey h2",
+        "label": "Journey Section Title",
+        "x": 157,
+        "y": 6329,
+        "width": 523,
+        "height": 48,
+        "top": 6329,
+        "bottom": 6377,
+        "left": 157,
+        "right": 680,
+        "computedStyle": {
+          "display": "block",
+          "position": "static",
+          "fontFamily": "Cinzel, \"Cormorant Garamond\", Georgia, serif",
+          "fontSize": "48px",
+          "fontWeight": "500",
+          "lineHeight": "48px",
+          "letterSpacing": "-1.2px",
+          "textTransform": "none",
+          "textAlign": "start",
+          "color": "rgb(255, 255, 255)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "border": "0px solid rgb(255, 255, 255)",
+          "borderRadius": "0px",
+          "padding": "0px",
+          "margin": "0px",
+          "zIndex": "auto",
+          "opacity": "1",
+          "transform": "none",
+          "backdropFilter": "none"
+        }
+      },
+      {
+        "selector": "#contact",
+        "label": "Contact Section Container",
+        "x": 77,
+        "y": 7466,
+        "width": 1280,
+        "height": 953,
+        "top": 7466,
+        "bottom": 8419,
+        "left": 77,
+        "right": 1357,
+        "computedStyle": {
+          "display": "block",
+          "position": "relative",
+          "fontFamily": "-apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, \"Helvetica Neue\", \"Noto Sans\", Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\"",
+          "fontSize": "16px",
+          "fontWeight": "400",
+          "lineHeight": "24px",
+          "letterSpacing": "normal",
+          "textTransform": "none",
+          "textAlign": "start",
+          "color": "rgb(255, 255, 255)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "border": "",
+          "borderRadius": "0px",
+          "padding": "144px 80px",
+          "margin": "0px 77px",
+          "zIndex": "auto",
+          "opacity": "1",
+          "transform": "none",
+          "backdropFilter": "none"
+        }
+      },
+      {
+        "selector": "#contact h2",
+        "label": "Contact Section Title",
+        "x": 157,
+        "y": 7687,
+        "width": 528,
+        "height": 225,
+        "top": 7687,
+        "bottom": 7912,
+        "left": 157,
+        "right": 685,
+        "computedStyle": {
+          "display": "block",
+          "position": "static",
+          "fontFamily": "Cinzel, \"Cormorant Garamond\", Georgia, serif",
+          "fontSize": "60px",
+          "fontWeight": "500",
+          "lineHeight": "75px",
+          "letterSpacing": "-1.5px",
+          "textTransform": "none",
+          "textAlign": "start",
+          "color": "rgb(255, 255, 255)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "border": "0px solid rgb(255, 255, 255)",
+          "borderRadius": "0px",
+          "padding": "0px",
+          "margin": "0px 0px 16px",
+          "zIndex": "auto",
+          "opacity": "1",
+          "transform": "none",
+          "backdropFilter": "none"
+        }
+      },
+      {
+        "selector": "a[href^=\"mailto:\"]",
+        "label": "Contact Email Action Link",
+        "x": 157,
+        "y": 8158,
+        "width": 242,
+        "height": 20,
+        "top": 8158,
+        "bottom": 8178,
+        "left": 157,
+        "right": 399,
+        "computedStyle": {
+          "display": "flex",
+          "position": "static",
+          "fontFamily": "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace",
+          "fontSize": "14px",
+          "fontWeight": "400",
+          "lineHeight": "20px",
+          "letterSpacing": "0.7px",
+          "textTransform": "none",
+          "textAlign": "start",
+          "color": "rgb(255, 255, 255)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "border": "0px solid rgb(255, 255, 255)",
+          "borderRadius": "0px",
+          "padding": "0px",
+          "margin": "0px",
+          "zIndex": "auto",
+          "opacity": "1",
+          "transform": "none",
+          "backdropFilter": "none"
+        }
+      },
+      {
+        "selector": "button[type=\"submit\"]",
+        "label": "Contact Dispatch Button",
+        "x": 790,
+        "y": 8123,
+        "width": 446,
+        "height": 48,
+        "top": 8123,
+        "bottom": 8171,
+        "left": 790,
+        "right": 1236,
+        "computedStyle": {
+          "display": "flex",
+          "position": "static",
+          "fontFamily": "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace",
+          "fontSize": "12px",
+          "fontWeight": "600",
+          "lineHeight": "16px",
+          "letterSpacing": "2.4px",
+          "textTransform": "uppercase",
+          "textAlign": "center",
+          "color": "rgb(0, 0, 0)",
+          "backgroundColor": "rgb(255, 255, 255)",
+          "border": "0px solid rgb(0, 0, 0)",
+          "borderRadius": "0px",
+          "padding": "16px 24px",
+          "margin": "0px",
+          "zIndex": "auto",
+          "opacity": "1",
+          "transform": "none",
+          "backdropFilter": "none"
+        }
+      },
+      {
+        "selector": "footer",
+        "label": "Footer Container",
+        "x": 0,
+        "y": 8419,
+        "width": 1434,
+        "height": 347,
+        "top": 8419,
+        "bottom": 8765,
+        "left": 0,
+        "right": 1434,
+        "computedStyle": {
+          "display": "block",
+          "position": "relative",
+          "fontFamily": "-apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, \"Helvetica Neue\", \"Noto Sans\", Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\"",
+          "fontSize": "16px",
+          "fontWeight": "400",
+          "lineHeight": "24px",
+          "letterSpacing": "normal",
+          "textTransform": "none",
+          "textAlign": "start",
+          "color": "oklch(0.705 0.015 286.067)",
+          "backgroundColor": "rgb(0, 0, 0)",
+          "border": "",
+          "borderRadius": "0px",
+          "padding": "64px 80px 112px",
+          "margin": "0px",
+          "zIndex": "10",
+          "opacity": "1",
+          "transform": "none",
+          "backdropFilter": "none"
+        }
+      },
+      {
+        "selector": "footer span.font-editorial",
+        "label": "Footer Brand Name",
+        "x": 80,
+        "y": 8484,
+        "width": 49,
+        "height": 28,
+        "top": 8484,
+        "bottom": 8512,
+        "left": 80,
+        "right": 129,
+        "computedStyle": {
+          "display": "block",
+          "position": "static",
+          "fontFamily": "Syne, \"Space Grotesk\", -apple-system, sans-serif",
+          "fontSize": "18px",
+          "fontWeight": "600",
+          "lineHeight": "28px",
+          "letterSpacing": "1.8px",
+          "textTransform": "uppercase",
+          "textAlign": "start",
+          "color": "rgb(255, 255, 255)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "border": "0px solid rgb(255, 255, 255)",
+          "borderRadius": "0px",
+          "padding": "0px",
+          "margin": "0px",
+          "zIndex": "auto",
+          "opacity": "1",
+          "transform": "none",
+          "backdropFilter": "none"
+        }
+      }
+    ],
+    "webgl": {
+      "contextType": "webgl2",
+      "renderer": "WebKit WebGL",
+      "vendor": "WebKit",
+      "shadingLanguageVersion": "WebGL GLSL ES 3.00 (OpenGL ES GLSL ES 3.0 Chromium)",
+      "maxTextureSize": 16384,
+      "maxViewportDims": {
+        "0": 32767,
+        "1": 32767
+      },
+      "drawingBufferWidth": 1434,
+      "drawingBufferHeight": 900
+    },
+    "fonts": {
+      "status": "loaded",
+      "size": 45
+    }
+  },
+  "anchorAuditResults": [
+    {
+      "anchor": "#about",
+      "label": "about",
+      "screenshot": "anchor_01_about_1440x900.png",
+      "scrollY": 900,
+      "targetTopInViewport": 0,
+      "navbarBottom": 61,
+      "clearanceBelowNavbar": -61,
+      "precedingSnippet": null
+    },
+    {
+      "anchor": "#works",
+      "label": "projects",
+      "screenshot": "anchor_02_projects_1440x900.png",
+      "scrollY": 2150,
+      "targetTopInViewport": 0,
+      "navbarBottom": 61,
+      "clearanceBelowNavbar": -61,
+      "precedingSnippet": {
+        "id": "about",
+        "visibleBottom": 0
+      }
+    },
+    {
+      "anchor": "#skills",
+      "label": "skills",
+      "screenshot": "anchor_03_skills_1440x900.png",
+      "scrollY": 4969,
+      "targetTopInViewport": 62,
+      "navbarBottom": 61,
+      "clearanceBelowNavbar": 1,
+      "precedingSnippet": {
+        "id": "works",
+        "visibleBottom": 62
+      }
+    },
+    {
+      "anchor": "#journey",
+      "label": "journey",
+      "screenshot": "anchor_04_journey_1440x900.png",
+      "scrollY": 6144,
+      "targetTopInViewport": 0,
+      "navbarBottom": 61,
+      "clearanceBelowNavbar": -61,
+      "precedingSnippet": {
+        "id": "skills",
+        "visibleBottom": 0
+      }
+    },
+    {
+      "anchor": "#contact",
+      "label": "contact",
+      "screenshot": "anchor_05_contact_1440x900.png",
+      "scrollY": 7466,
+      "targetTopInViewport": 0,
+      "navbarBottom": 61,
+      "clearanceBelowNavbar": -61,
+      "precedingSnippet": {
+        "id": "journey",
+        "visibleBottom": 0
+      }
+    },
+    {
+      "anchor": "#top",
+      "label": "home",
+      "screenshot": "anchor_06_top_1440x900.png",
+      "scrollY": 1025,
+      "targetTopInViewport": -961,
+      "navbarBottom": 61,
+      "clearanceBelowNavbar": -1022,
+      "precedingSnippet": null
+    }
+  ],
+  "reducedMotionState": {
+    "isPrefersReduced": true,
+    "isShellVisible": true,
+    "canvasPresent": true
+  },
+  "screenshots": [
+    {
+      "filename": "01-intro-ring-1440x900.png",
+      "bytes": 289700
+    },
+    {
+      "filename": "02-intro-impact-1440x900.png",
+      "bytes": 244447
+    },
+    {
+      "filename": "03-atif-formation-1440x900.png",
+      "bytes": 421407
+    },
+    {
+      "filename": "04-portfolio-formation-1440x900.png",
+      "bytes": 359979
+    },
+    {
+      "filename": "05-portrait-reconstruction-1440x900.png",
+      "bytes": 501739
+    },
+    {
+      "filename": "06-final-hero-1440x900.png",
+      "bytes": 314700
+    },
+    {
+      "filename": "06b-hero-cursor-interaction-1440x900.png",
+      "bytes": 314488
+    },
+    {
+      "filename": "07-about-top-1440x900.png",
+      "bytes": 163226
+    },
+    {
+      "filename": "08-project-gallery-entry-1440x900.png",
+      "bytes": 116477
+    },
+    {
+      "filename": "09-project-gallery-middle-1440x900.png",
+      "bytes": 152869
+    },
+    {
+      "filename": "09b-project-gallery-75percent-1440x900.png",
+      "bytes": 121817
+    },
+    {
+      "filename": "10-project-gallery-end-1440x900.png",
+      "bytes": 98354
+    },
+    {
+      "filename": "11-skills-1440x900.png",
+      "bytes": 70555
+    },
+    {
+      "filename": "12-journey-1440x900.png",
+      "bytes": 83647
+    },
+    {
+      "filename": "13-contact-1440x900.png",
+      "bytes": 84064
+    },
+    {
+      "filename": "14-footer-1440x900.png",
+      "bytes": 50758
+    },
+    {
+      "filename": "15-replay-behavior-1440x900.png",
+      "bytes": 15358
+    },
+    {
+      "filename": "anchor_01_about_1440x900.png",
+      "bytes": 119726
+    },
+    {
+      "filename": "anchor_02_projects_1440x900.png",
+      "bytes": 136719
+    },
+    {
+      "filename": "anchor_03_skills_1440x900.png",
+      "bytes": 67654
+    },
+    {
+      "filename": "anchor_04_journey_1440x900.png",
+      "bytes": 61593
+    },
+    {
+      "filename": "anchor_05_contact_1440x900.png",
+      "bytes": 63208
+    },
+    {
+      "filename": "anchor_06_top_1440x900.png",
+      "bytes": 224621
+    },
+    {
+      "filename": "1920x1080-01-hero.png",
+      "bytes": 365801
+    },
+    {
+      "filename": "1920x1080-02-about.png",
+      "bytes": 146450
+    },
+    {
+      "filename": "1920x1080-03-projects.png",
+      "bytes": 127788
+    },
+    {
+      "filename": "1920x1080-04-skills.png",
+      "bytes": 78144
+    },
+    {
+      "filename": "1920x1080-05-journey.png",
+      "bytes": 410905
+    },
+    {
+      "filename": "1920x1080-06-contact.png",
+      "bytes": 394958
+    },
+    {
+      "filename": "1920x1080-07-footer.png",
+      "bytes": 374114
+    },
+    {
+      "filename": "1366x768-01-hero.png",
+      "bytes": 275151
+    },
+    {
+      "filename": "1366x768-02-about.png",
+      "bytes": 102571
+    },
+    {
+      "filename": "1366x768-03-projects.png",
+      "bytes": 131816
+    },
+    {
+      "filename": "1366x768-04-skills.png",
+      "bytes": 52587
+    },
+    {
+      "filename": "1366x768-05-journey.png",
+      "bytes": 57352
+    },
+    {
+      "filename": "1366x768-06-contact.png",
+      "bytes": 59824
+    },
+    {
+      "filename": "1366x768-07-footer.png",
+      "bytes": 37395
+    },
+    {
+      "filename": "768x1024-01-hero.png",
+      "bytes": 1056296
+    },
+    {
+      "filename": "768x1024-02-about.png",
+      "bytes": 222798
+    },
+    {
+      "filename": "768x1024-03-projects.png",
+      "bytes": 174642
+    },
+    {
+      "filename": "768x1024-04-skills.png",
+      "bytes": 168885
+    },
+    {
+      "filename": "768x1024-05-journey.png",
+      "bytes": 172997
+    },
+    {
+      "filename": "768x1024-06-contact.png",
+      "bytes": 137185
+    },
+    {
+      "filename": "768x1024-07-footer.png",
+      "bytes": 103316
+    },
+    {
+      "filename": "390x844-01-hero.png",
+      "bytes": 1017406
+    },
+    {
+      "filename": "390x844-02-about.png",
+      "bytes": 223539
+    },
+    {
+      "filename": "390x844-03-projects.png",
+      "bytes": 173049
+    },
+    {
+      "filename": "390x844-04-skills.png",
+      "bytes": 153039
+    },
+    {
+      "filename": "390x844-05-journey.png",
+      "bytes": 192026
+    },
+    {
+      "filename": "390x844-06-contact.png",
+      "bytes": 166840
+    },
+    {
+      "filename": "390x844-07-footer.png",
+      "bytes": 114173
+    },
+    {
+      "filename": "320x700-01-hero.png",
+      "bytes": 667764
+    },
+    {
+      "filename": "320x700-02-about.png",
+      "bytes": 86916
+    },
+    {
+      "filename": "320x700-03-projects.png",
+      "bytes": 82386
+    },
+    {
+      "filename": "320x700-04-skills.png",
+      "bytes": 77453
+    },
+    {
+      "filename": "320x700-05-journey.png",
+      "bytes": 93247
+    },
+    {
+      "filename": "320x700-06-contact.png",
+      "bytes": 86529
+    },
+    {
+      "filename": "320x700-07-footer.png",
+      "bytes": 60102
+    },
+    {
+      "filename": "reduced-motion-settled-1440x900.png",
+      "bytes": 318379
+    }
+  ],
+  "consoleMessages": [
+    {
+      "type": "debug",
+      "args": [
+        "[vite] connecting..."
+      ]
+    },
+    {
+      "type": "info",
+      "args": [
+        "%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools",
+        "font-weight:bold"
+      ]
+    },
+    {
+      "type": "warning",
+      "args": [
+        "THREE.Clock: This module has been deprecated. Please use THREE.Timer instead."
+      ]
+    },
+    {
+      "type": "warning",
+      "args": [
+        "THREE.Clock: This module has been deprecated. Please use THREE.Timer instead."
+      ]
+    },
+    {
+      "type": "debug",
+      "args": [
+        "[vite] connected."
+      ]
+    },
+    {
+      "type": "debug",
+      "args": [
+        "[vite] connecting..."
+      ]
+    },
+    {
+      "type": "debug",
+      "args": [
+        "[vite] connected."
+      ]
+    },
+    {
+      "type": "info",
+      "args": [
+        "%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools",
+        "font-weight:bold"
+      ]
+    },
+    {
+      "type": "warning",
+      "args": [
+        "THREE.Clock: This module has been deprecated. Please use THREE.Timer instead."
+      ]
+    },
+    {
+      "type": "warning",
+      "args": [
+        "THREE.Clock: This module has been deprecated. Please use THREE.Timer instead."
+      ]
+    },
+    {
+      "type": "debug",
+      "args": [
+        "[vite] connecting..."
+      ]
+    },
+    {
+      "type": "debug",
+      "args": [
+        "[vite] connected."
+      ]
+    },
+    {
+      "type": "info",
+      "args": [
+        "%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools",
+        "font-weight:bold"
+      ]
+    },
+    {
+      "type": "warning",
+      "args": [
+        "THREE.Clock: This module has been deprecated. Please use THREE.Timer instead."
+      ]
+    },
+    {
+      "type": "warning",
+      "args": [
+        "THREE.Clock: This module has been deprecated. Please use THREE.Timer instead."
+      ]
+    }
+  ]
+}

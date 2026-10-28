@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en" class="bg-black text-white">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mohammed Atif Portfolio — Forensic Design Audit Contact Sheet</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: #080808;
+      color: #e4e4e7;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      padding: 40px 24px;
+      line-height: 1.5;
+    }
+    header {
+      max-width: 1400px;
+      margin: 0 auto 40px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    h1 {
+      font-size: 28px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      color: #ffffff;
+      margin-bottom: 8px;
+    }
+    .meta {
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 12px;
+      color: #71717a;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .meta span { color: #a1a1aa; }
+    section {
+      max-width: 1400px;
+      margin: 0 auto 48px;
+    }
+    h2 {
+      font-size: 18px;
+      font-weight: 600;
+      color: #ffffff;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+    h2::before {
+      content: '';
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      background: #34d399;
+      border-radius: 50%;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 24px;
+    }
+    .card {
+      background: #121214;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 8px;
+      overflow: hidden;
+      display: flex;
+      flex-col;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .card:hover {
+      border-color: rgba(255, 255, 255, 0.25);
+      transform: translateY(-2px);
+    }
+    .img-wrap {
+      width: 100%;
+      height: 200px;
+      background: #000;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+    .img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      transition: transform 0.3s;
+    }
+    .img-wrap:hover img {
+      transform: scale(1.04);
+    }
+    .info {
+      padding: 16px;
+      font-size: 13px;
+    }
+    .info h3 {
+      font-size: 13px;
+      font-weight: 600;
+      color: #f4f4f5;
+      margin-bottom: 6px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .info p {
+      color: #a1a1aa;
+      font-size: 12px;
+      line-height: 1.4;
+      margin-bottom: 10px;
+    }
+    .badge {
+      display: inline-block;
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 10px;
+      text-transform: uppercase;
+      padding: 2px 8px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 4px;
+      color: #d4d4d8;
+    }
+    /* Modal */
+    #modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.92);
+      z-index: 100;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      cursor: zoom-out;
+    }
+    #modal img {
+      max-width: 95vw;
+      max-height: 95vh;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 24px 80px rgba(0, 0, 0, 0.9);
+      object-fit: contain;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Mohammed Atif Portfolio — Forensic Design Audit Contact Sheet</h1>
+    <div class="meta">
+      <div>Lead Auditor: <span>Senior Digital Art Director & Visual QA Lead</span></div>
+      <div>Date: <span>October 26, 2026</span></div>
+      <div>Screenshots: <span>59 Original Full-Resolution Captures</span></div>
+      <div>Viewports: <span>1920×1080, 1440×900, 1366×768, 768×1024, 390×844, 320×700</span></div>
+    </div>
+  </header>
+
+  <section>
+    <h2>1. Cinematic Intro Sequence (1440 × 900)</h2>
+    <div class="grid">
+      <div class="card">
+        <div class="img-wrap" onclick="openModal('screenshots/01-intro-ring-1440x900.png')">
+          <img src="screenshots/01-intro-ring-1440x900.png" alt="01-intro-ring" loading="lazy">
+        </div>
+        <div class="info">
+          <h3>01-intro-ring-1440x900.png</h3>
+          <p>Phase 01: Hollow Glowing Ring solidifying in center (t = 0.50s).</p>
+          <span class="badge">1440 × 900 • 289.7 KB</span>
+        </div>
+      </div>
+      <div class="card">
+        <div class="img-wrap" onclick="openModal('screenshots/02-intro-impact-1440x900.png')">
+          <img src="screenshots/02-intro-impact-1440x900.png" alt="02-intro-impact" loading="lazy">
+        </div>
+        <div class="info">
+          <h3>02-intro-impact-1440x900.png</h3>
+          <p>Phase 02: Ring detonation and full-screen dispersion (t = 1.35s).</p>
+          <span class="badge">1440 × 900 • 244.4 KB</span>
+        </div>
+      </div>
+      <div class="card">
+        <div class="img-wrap" onclick="openModal('screenshots/03-atif-formation-1440x900.png')">
+          <img src="screenshots/03-atif-formation-1440x900.png" alt="03-atif-formation" loading="lazy">
+        </div>
+        <div class="info">
+          <h3>03-atif-formation-1440x900.png</h3>
+          <p>Phase 03: Typography convergence into ATIF letter glyphs (t = 3.20s).</p>
+          <span class="badge">1440 × 900 • 421.4 KB</span>
+        </div>
+      </div>
+      <div class="card">
+        <div class="img-wrap" onclick="openModal('screenshots/04-portfolio-formation-1440x900.png')">
+          <img src="screenshots/04-portfolio-formation-1440x900.png" alt="04-portfolio-formation" loading="lazy">
+        </div>
+        <div class="info">
+          <h3>04-portfolio-formation-1440x900.png</h3>
+          <p>Phase 04: Continuous morph into PORTFOLIO with left-to-right sweep (t = 5.80s).</p>
+          <span class="badge">1440 × 900 • 360.0 KB</span>
+        </div>
+      </div>
+      <div class="card">
+        <div class="img-wrap" onclick="openModal('screenshots/05-portrait-reconstruction-1440x900.png')">
+          <img src="screenshots/05-portrait-reconstruction-1440x900.png" alt="05-portrait-reconstruction" loading="lazy">
+        </div>
+        <div class="info">
+          <h3>05-portrait-reconstruction-1440x900.png</h3>
+          <p>Phase 05: Parabolic flow reconstructing the 3D anatomical face (t = 8.50s).</p>
+          <span class="badge">1440 × 900 • 501.7 KB</span>
+        </div>
+      </div>
+      <div class="card">
+        <div class="img-wrap" onclick="openModal('screenshots/06-final-hero-1440x900.png')">
+          <img src="screenshots/06-final-hero-1440x900.png" alt="06-final-hero" loading="lazy">
+        </div>
+        <div class="info">
+          <h3>06-final-hero-1440x900.png</h3>
+          <p>Phase 06: Settled Hero with navbar dock and editorial MOHAMMED ATIF typography.</p>
+          <span class="badge">1440 × 900 • 314.7 KB</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>2. Sections & Scroll States (1440 × 900)</h2>
+    <div class="grid">
+      <div class="card">
+        <div class="img-wrap" onclick="openModal('screenshots/07-about-top-1440x900.png')">
+          <img src="screenshots/07-about-top-1440x900.png" alt="07-about-top" loading="lazy">
+        </div>
+        <div class="info">
+          <h3>07-about-top-1440x900.png</h3>
+          <p>About: Core Ethos header, progress meter, headline, and capability cards.</p>
+          <span class="badge">About • 163.2 KB</span>
+        </div>
+      </div>
+      <div class="card">
+        <div class="img-wrap" onclick="openModal('screenshots/08-project-gallery-entry-1440x900.png')">
+          <img src="screenshots/08-project-gallery-entry-1440x900.png" alt="08-project-gallery-entry" loading="lazy">
+        </div>
+        <div class="info">
+          <h3>08-project-gallery-entry-1440x900.png</h3>
+          <p>Projects: Pinned gallery entrance HUD and Card 01 focal alignment.</p>
+          <span class="badge">Projects Entry • 116.5 KB</span>
+        </div>
+      </div>
+      <div class="card">
+        <div class="img-wrap" onclick="openModal('screenshots/09-project-gallery-middle-1440x900.png')">
+          <img src="screenshots/09-project-gallery-middle-1440x900.png" alt="09-project-gallery-middle" loading="lazy">
+        </div>
+        <div class="info">
+          <h3>09-project-gallery-middle-1440x900.png</h3>
+          <p>Projects: 30% scrub showing 3D cylindrical rotation (R=1400px).</p>
+          <span class="badge">Projects 30% • 152.9 KB</span>
+        </div>
+      </div>
+      <div class="card">
+        <div class="img-wrap" onclick="openModal('screenshots/11-skills-1440x900.png')">
+          <img src="screenshots/11-skills-1440x900.png" alt="11-skills" loading="lazy">
+        </div>
+        <div class="info">
+          <h3>11-skills-1440x900.png</h3>
+          <p>Skills: Engineering Matrix 2-column grid and monospace skill pills.</p>
+          <span class="badge">Skills • 70.6 KB</span>
+        </div>
+      </div>
+      <div class="card">
+        <div class="img-wrap" onclick="openModal('screenshots/12-journey-1440x900.png')">
+          <img src="screenshots/12-journey-1440x900.png" alt="12-journey" loading="lazy">
+        </div>
+        <div class="info">
+          <h3>12-journey-1440x900.png</h3>
+          <p>Journey: Chronological Milestones rail, nodes, and career entries.</p>
+          <span class="badge">Journey • 83.6 KB</span>
+        </div>
+      </div>
+      <div class="card">
+        <div class="img-wrap" onclick="openModal('screenshots/13-contact-1440x900.png')">
+          <img src="screenshots/13-contact-1440x900.png" alt="13-contact" loading="lazy">
+        </div>
+        <div class="info">
+          <h3>13-contact-1440x900.png</h3>
+          <p>Contact: Collaboration headline, email CTA, and dispatch form.</p>
+          <span class="badge">Contact • 84.1 KB</span>
+        </div>
+      </div>
+      <div class="card">
+        <div class="img-wrap" onclick="openModal('screenshots/14-footer-1440x900.png')">
+          <img src="screenshots/14-footer-1440x900.png" alt="14-footer" loading="lazy">
+        </div>
+        <div class="info">
+          <h3>14-footer-1440x900.png</h3>
+          <p>Footer: Current editorial footer inventory (preserved unmodified).</p>
+          <span class="badge">Footer • 50.8 KB</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>3. Cross-Device Responsive Matrix (Hero Across 6 Viewports)</h2>
+    <div class="grid">
+      <div class="card">
+        <div class="img-wrap" onclick="openModal('screenshots/1920x1080-01-hero.png')">
+          <img src="screenshots/1920x1080-01-hero.png" alt="1920x1080-01-hero" loading="lazy">
+        </div>
+        <div class="info">
+          <h3>1920x1080-01-hero.png</h3>
+          <p>Ultra-Wide Desktop: Full edge-to-edge canvas with 1280px container.</p>
+          <span class="badge">1920 × 1080 • 365.8 KB</span>
+        </div>
+      </div>
+      <div class="card">
+        <div class="img-wrap" onclick="openModal('screenshots/1366x768-01-hero.png')">
+          <img src="screenshots/1366x768-01-hero.png" alt="1366x768-01-hero" loading="lazy">
+        </div>
+        <div class="info">
+          <h3>1366x768-01-hero.png</h3>
+          <p>Compact Laptop: Torso dissolve prevents overlap with MOHAMMED subtitle.</p>
+          <span class="badge">1366 × 768 • 275.2 KB</span>
+        </div>
+      </div>
+      <div class="card">
+        <div class="img-wrap" onclick="openModal('screenshots/768x1024-01-hero.png')">
+          <img src="screenshots/768x1024-01-hero.png" alt="768x1024-01-hero" loading="lazy">
+        </div>
+        <div class="info">
+          <h3>768x1024-01-hero.png</h3>
+          <p>Tablet Portrait: 20,000 particle budget; point size calibrated to 1.85.</p>
+          <span class="badge">768 × 1024 • 1,056.3 KB</span>
+        </div>
+      </div>
+      <div class="card">
+        <div class="img-wrap" onclick="openModal('screenshots/390x844-01-hero.png')">
+          <img src="screenshots/390x844-01-hero.png" alt="390x844-01-hero" loading="lazy">
+        </div>
+        <div class="info">
+          <h3>390x844-01-hero.png</h3>
+          <p>Modern Mobile: pt-16 provides 22px clear buffer below floating navbar.</p>
+          <span class="badge">390 × 844 • 1,017.4 KB</span>
+        </div>
+      </div>
+      <div class="card">
+        <div class="img-wrap" onclick="openModal('screenshots/320x700-01-hero.png')">
+          <img src="screenshots/320x700-01-hero.png" alt="320x700-01-hero" loading="lazy">
+        </div>
+        <div class="info">
+          <h3>320x700-01-hero.png</h3>
+          <p>Narrow Mobile Stress: Zero horizontal overflow; text truncation active.</p>
+          <span class="badge">320 × 700 • 667.8 KB</span>
+        </div>
+      </div>
+      <div class="card">
+        <div class="img-wrap" onclick="openModal('screenshots/reduced-motion-settled-1440x900.png')">
+          <img src="screenshots/reduced-motion-settled-1440x900.png" alt="reduced-motion-settled" loading="lazy">
+        </div>
+        <div class="info">
+          <h3>reduced-motion-settled-1440x900.png</h3>
+          <p>prefers-reduced-motion: Instant settled portrait without kinetic delays.</p>
+          <span class="badge">Accessibility • 318.4 KB</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div id="modal" onclick="closeModal()">
+    <img id="modalImg" src="" alt="Zoomed screenshot">
+  </div>
+
+  <script>
+    function openModal(src) {
+      document.getElementById('modalImg').src = src;
+      document.getElementById('modal').style.display = 'flex';
+    }
+    function closeModal() {
+      document.getElementById('modal').style.display = 'none';
+    }
+  </script>
+
+</body>
+</html>
