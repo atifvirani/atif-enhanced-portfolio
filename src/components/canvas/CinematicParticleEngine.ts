@@ -22,8 +22,8 @@ export class CinematicParticleEngine {
   // Ring Mesh for Phase 01 & 02
   private ringMesh: THREE.Mesh | null = null
   private ringMaterial: THREE.ShaderMaterial | null = null
-  private ringRadius = 2.5
-  private ringThickness = 0.35
+  private ringRadius = 2.4
+  private ringThickness = 0.28
 
   // Volumetric Atmospheric Light Beams
   private lightMesh: THREE.Mesh | null = null
@@ -32,7 +32,7 @@ export class CinematicParticleEngine {
     uTime: { value: 0.0 },
     uScrollProgress: { value: 0.0 },
     uAspect: { value: 1.0 },
-    uIntensity: { value: 0.85 },
+    uIntensity: { value: 0.0 }, // Starts at 0 in void, blooms during sequence
   }
 
   // Particle System
@@ -60,8 +60,8 @@ export class CinematicParticleEngine {
     uScrollProgress: { value: 0.0 },
     uIsScrollActive: { value: 0.0 },
     uMouse: { value: new THREE.Vector2(9999, 9999) },
-    uMouseRadius: { value: 9.5 },
-    uMouseStrength: { value: 0.95 },
+    uMouseRadius: { value: 9.0 },
+    uMouseStrength: { value: 0.85 },
   }
 
   // Ring Uniforms
@@ -70,7 +70,7 @@ export class CinematicParticleEngine {
     uRingOpacity: { value: 0.0 },
   }
 
-  // Pointer & Scroll Tracking for Genuine Parallax
+  // Pointer & Scroll Tracking
   private targetMouse = new THREE.Vector2(9999, 9999)
   private currentMouse = new THREE.Vector2(9999, 9999)
 
@@ -100,7 +100,7 @@ export class CinematicParticleEngine {
     // 2. High-performance WebGL Renderer
     const dpr = Math.min(window.devicePixelRatio || 1, 2)
     this.uniforms.uDpr.value = dpr
-    this.uniforms.uPointSize.value = this.projection.isMobile ? 1.85 : 1.70
+    this.uniforms.uPointSize.value = this.projection.isMobile ? 1.75 : 1.65
 
     this.renderer = new THREE.WebGLRenderer({
       powerPreference: 'high-performance',
@@ -121,7 +121,7 @@ export class CinematicParticleEngine {
     this.renderer.domElement.style.height = '100%'
     this.renderer.domElement.style.pointerEvents = 'none'
 
-    // 3. Create Ring Geometry & Shader
+    // 3. Create Refined Ring Geometry & Shader
     this.createRing()
 
     // 4. Create Atmospheric Volumetric Light Quad
@@ -133,14 +133,14 @@ export class CinematicParticleEngine {
     // 6. Create GPU Particle System
     this.createParticleSystem()
 
-    // 6. Listeners
+    // 7. Event Listeners
     window.addEventListener('mousemove', this.handleMouseMove, { passive: true })
     window.addEventListener('mouseleave', this.handleMouseLeave, { passive: true })
     window.addEventListener('touchmove', this.handleTouchMove, { passive: true })
     window.addEventListener('touchend', this.handleMouseLeave, { passive: true })
     window.addEventListener('resize', this.handleResize, { passive: true })
 
-    // 7. Start render loop
+    // 8. Start render loop
     this.animate()
   }
 
@@ -173,7 +173,17 @@ export class CinematicParticleEngine {
           float threshold = uRingProgress * 2.0 * PI;
           if (angle > threshold) discard;
 
-          gl_FragColor = vec4(1.0, 1.0, 1.0, uRingOpacity);
+          // Soft sub-pixel radial falloff for delicate narrow silver glow
+          float r = length(vPosition);
+          float mid = 2.4;
+          float halfThick = 0.14;
+          float distFromMid = abs(r - mid) / halfThick;
+          float radialEdge = smoothstep(1.0, 0.0, distFromMid);
+
+          // Platinum silver-white tone
+          vec3 ringColor = mix(vec3(0.85, 0.88, 0.94), vec3(1.0, 1.0, 1.0), radialEdge);
+
+          gl_FragColor = vec4(ringColor, uRingOpacity * radialEdge);
         }
       `,
       transparent: true,
@@ -189,7 +199,6 @@ export class CinematicParticleEngine {
   private createAtmosphericLight(): void {
     if (!this.scene || !this.projection) return
 
-    // High-resolution quad positioned in the background plane behind particles
     const width = this.projection.visibleWidth * 1.6
     const height = this.projection.visibleHeight * 1.6
     const lightGeo = new THREE.PlaneGeometry(width, height)
@@ -213,47 +222,48 @@ export class CinematicParticleEngine {
         varying vec2 vUv;
 
         void main() {
-          // Origin is slightly above top-center fold
-          vec2 origin = vec2(0.50, 1.14);
+          // Broad, diffused light originating softly above top-center
+          vec2 origin = vec2(0.50, 1.18);
           vec2 delta = vec2((vUv.x - origin.x) * uAspect, origin.y - vUv.y);
           float dist = length(delta);
           float angle = atan(delta.x, delta.y);
 
-          // 1. Diffused downward cone with soft horizontal limits
-          float coneWidth = vUv.y * 0.50 + 0.36;
-          float cone = smoothstep(coneWidth, 0.03, abs(vUv.x - 0.50));
+          // 1. Broad soft ambient cone (avoids harsh triangular edges)
+          float coneWidth = vUv.y * 0.70 + 0.45;
+          float cone = smoothstep(coneWidth, 0.05, abs(vUv.x - 0.50));
 
-          // 2. Multi-octave harmonic volumetric light shafts drifting with time
-          float ray1 = sin(angle * 16.0 + uTime * 0.12) * 0.5 + 0.5;
-          float ray2 = sin(angle * 28.0 - uTime * 0.07 + 1.8) * 0.5 + 0.5;
-          float ray3 = sin(angle * 44.0 + uTime * 0.16 + 3.4) * 0.5 + 0.5;
-          float shafts = pow(ray1 * 0.52 + ray2 * 0.30 + ray3 * 0.18, 2.3);
+          // 2. Multi-octave diffused harmonic light shafts drifting gently
+          float ray1 = sin(angle * 10.0 + uTime * 0.08) * 0.5 + 0.5;
+          float ray2 = sin(angle * 18.0 - uTime * 0.05 + 1.4) * 0.5 + 0.5;
+          float ray3 = sin(angle * 32.0 + uTime * 0.10 + 2.8) * 0.5 + 0.5;
+          // Soft harmonic blending (low exponent avoids knife-sharp wedges)
+          float shafts = pow(ray1 * 0.50 + ray2 * 0.32 + ray3 * 0.18, 1.55);
 
-          // 3. Natural exponential vertical decay into deep black
-          float verticalFalloff = exp(-dist * 1.55);
-          float bottomFade = smoothstep(0.02, 0.40, vUv.y);
+          // 3. Gentle exponential vertical decay into rich black negative space
+          float verticalFalloff = exp(-dist * 1.35);
+          float bottomFade = smoothstep(0.01, 0.42, vUv.y);
 
           // 4. Central facial feature preservation mask:
-          // Keep the central portrait area clear of heavy haze so fine particles pop
-          float faceDist = length(vec2((vUv.x - 0.50) * 1.5, vUv.y - 0.50));
-          float facePreserve = smoothstep(0.08, 0.38, faceDist) * 0.35 + 0.65;
+          // Controlled depression behind face so fine particles retain crisp contrast
+          float faceDist = length(vec2((vUv.x - 0.50) * 1.6, vUv.y - 0.48));
+          float facePreserve = smoothstep(0.06, 0.40, faceDist) * 0.45 + 0.55;
 
-          // 5. Ambient atmospheric haze layer
-          float ambientHaze = exp(-dist * 2.0) * 0.32;
-          float totalLight = (shafts * 0.65 + ambientHaze) * cone * verticalFalloff * bottomFade * facePreserve;
+          // 5. Diffused ambient mist layer
+          float ambientHaze = exp(-dist * 1.8) * 0.38;
+          float totalLight = (shafts * 0.55 + ambientHaze) * cone * verticalFalloff * bottomFade * facePreserve;
 
-          // 6. Smooth scroll decay: fades softly as hero scrolls away into About
-          float scrollFade = 1.0 - smoothstep(0.25, 0.85, uScrollProgress);
+          // 6. Scroll decay: fades softly as hero scrolls away into About
+          float scrollFade = 1.0 - smoothstep(0.20, 0.85, uScrollProgress);
           totalLight *= scrollFade * uIntensity;
 
-          // 7. Platinum silver-white palette (restrained, non-neon, no cyan/magenta tint)
-          vec3 coreRay = vec3(0.88, 0.91, 0.96);
+          // 7. Platinum silver-white palette (zero blue, purple, or cyan cast)
+          vec3 coreRay = vec3(0.90, 0.93, 0.98);
           vec3 mistColor = vec3(0.68, 0.72, 0.78);
           vec3 finalColor = mix(mistColor, coreRay, shafts);
 
-          // 8. High-frequency dither to eliminate any banding on standard 8-bit displays
+          // 8. Dither to eliminate any banding
           float dither = (fract(sin(dot(gl_FragCoord.xy, vec2(12.9898, 78.233))) * 43758.5453) - 0.5) * (1.0 / 255.0);
-          float finalAlpha = clamp(totalLight + dither, 0.0, 0.14);
+          float finalAlpha = clamp(totalLight + dither, 0.0, 0.13);
 
           gl_FragColor = vec4(finalColor, finalAlpha);
         }
@@ -318,7 +328,6 @@ export class CinematicParticleEngine {
     this.geometry.setAttribute('aSize', new THREE.BufferAttribute(sizes, 1))
     this.geometry.setAttribute('aTone', new THREE.BufferAttribute(tones, 3))
 
-    // High-precision GPU shader supporting fine dust grains, tonal separation, and subtle cursor interaction
     this.shaderMaterial = new THREE.ShaderMaterial({
       uniforms: this.uniforms,
       vertexShader: `
@@ -366,74 +375,69 @@ export class CinematicParticleEngine {
             // ========================================================
             float p = clamp(uScrollProgress, 0.0, 1.0);
 
-            // Base position is the refined living portrait
             pos = aPortraitPos;
             currentTone = aPortraitTone;
             currentSize = aPortraitSize;
             float portraitAlpha = aPortraitBrightness;
             baseAlpha = portraitAlpha * uOpacity;
 
-            // Subtle parallax and organic dispersal as hero scrolls away:
-            // 1. Portrait moves subtly upward
-            pos.y += p * 18.0;
-            // 2. Soft depth shift
-            pos.z -= p * 14.0;
+            // Subtle parallax and organic dispersion as hero scrolls away:
+            pos.y += p * 16.0;
+            pos.z -= p * 12.0;
 
-            // 3. Delicate outer dispersion: dust halo & lower torso grains drift gently
             vec3 driftDir = normalize(aRandom - 0.5);
-            float driftSensitivity = 1.0 - smoothstep(0.35, 0.85, aPortraitBrightness);
-            pos += driftDir * (p * 15.0 * driftSensitivity);
+            float driftSensitivity = 1.0 - smoothstep(0.40, 0.90, aPortraitBrightness);
+            pos += driftDir * (p * 14.0 * driftSensitivity);
 
-            // 4. Soft fade as hero scrolls out of view toward About section
             baseAlpha *= (1.0 - smoothstep(0.70, 1.0, p));
 
           } else {
             // ========================================================
-            // INTRO CHOREOGRAPHY (Phases 1 - 8)
+            // INTRO CHOREOGRAPHY (Continuous smooth transitions)
             // ========================================================
-            float staggered = clamp((uProgress - aRandom.x * 0.20) / 0.80, 0.0, 1.0);
-            float t = smoothstep(0.0, 1.0, staggered);
+            // Hermite smootherstep with subtle randomized per-particle arrival times
+            float staggered = clamp((uProgress - aRandom.x * 0.16) / 0.84, 0.0, 1.0);
+            float t = staggered * staggered * (3.0 - 2.0 * staggered);
             pos = mix(position, aTargetPos, t);
 
             // 1. Salt blast / transition arc dispersal
             if (uDispersal > 0.0) {
               vec3 dir = normalize(aRandom - 0.5);
-              float dispersalMultiplier = uDispersal * (30.0 + aRandom.y * 22.0);
-              // Parabolic outward release during morph transitions (e.g. PORTFOLIO into Portrait)
+              float dispersalMultiplier = uDispersal * (28.0 + aRandom.y * 20.0);
               if (uProgress > 0.01 && uProgress < 0.99) {
                 float arc = sin(t * 3.14159);
                 pos += dir * (dispersalMultiplier * arc);
-                pos.y -= uDispersal * arc * 4.0;
+                pos.y -= uDispersal * arc * 3.5;
               } else {
                 pos += dir * dispersalMultiplier;
-                pos.y -= uDispersal * 8.0;
+                pos.y -= uDispersal * 6.0;
               }
             }
 
-            // 2. Thanos-style dissolution wave across ATIF (directional sweep, gentle outward drift)
+            // 2. ATIF Dissolution wave into fine silver dust field
             float dissolveFactor = 0.0;
             if (uDissolveProgress > 0.0) {
-              float waveThreshold = uDissolveProgress * 1.35 - 0.15;
+              float waveThreshold = uDissolveProgress * 1.30 - 0.15;
               if (aDissolveNoise < waveThreshold) {
                 float delta = waveThreshold - aDissolveNoise;
                 float drift = smoothstep(0.0, 0.45, delta);
-                pos.y += drift * (14.0 + aRandom.z * 10.0);
-                pos.x += (aRandom.x - 0.35) * drift * 16.0;
-                pos.z += (aRandom.y - 0.5) * drift * 10.0;
-                dissolveFactor = smoothstep(0.0, 0.45, delta);
+                pos.y += drift * (12.0 + aRandom.z * 10.0);
+                pos.x += (aRandom.x - 0.40) * drift * 15.0;
+                pos.z += (aRandom.y - 0.50) * drift * 12.0;
+                dissolveFactor = smoothstep(0.0, 0.50, delta) * 0.65;
               }
             }
 
-            // 3. Progressive assembly across letters for PORTFOLIO with intra-letter group travel
+            // 3. Progressive assembly across letters for PORTFOLIO
             if (uLetterStep > 0.0 && uLetterStep < 9.8) {
               float letterProgress = uLetterStep - aLetterIdx;
-              float intraStagger = aRandom.x * 0.35;
-              float assembleT = clamp((letterProgress - intraStagger) / 0.65, 0.0, 1.0);
+              float intraStagger = aRandom.x * 0.30;
+              float assembleT = clamp((letterProgress - intraStagger) / 0.70, 0.0, 1.0);
               if (assembleT < 1.0) {
                 float unassembled = 1.0 - smoothstep(0.0, 1.0, assembleT);
-                pos.x += (aRandom.x - 0.5) * unassembled * 9.0;
-                pos.y += (aRandom.y - 0.5) * unassembled * 10.0;
-                pos.z += (aRandom.z - 0.5) * unassembled * 6.0;
+                pos.x += (aRandom.x - 0.5) * unassembled * 8.0;
+                pos.y += (aRandom.y - 0.5) * unassembled * 9.0;
+                pos.z += (aRandom.z - 0.5) * unassembled * 5.0;
               }
             }
 
@@ -451,21 +455,21 @@ export class CinematicParticleEngine {
           float distToMouse = length(toMouse);
           if (distToMouse < uMouseRadius && distToMouse > 0.001) {
             float normDist = distToMouse / uMouseRadius;
-            float force = pow(1.0 - normDist, 2.5); // delicate cubic falloff
+            float force = pow(1.0 - normDist, 2.8);
             vec2 push = normalize(toMouse) * force * uMouseStrength;
             pos.xy += push;
           }
 
           // Subtle organic micro-hover
-          pos.x += sin(uTime * 0.7 + aRandom.y * 6.28) * 0.16;
-          pos.y += cos(uTime * 0.6 + aRandom.x * 6.28) * 0.16;
+          pos.x += sin(uTime * 0.65 + aRandom.y * 6.28) * 0.14;
+          pos.y += cos(uTime * 0.55 + aRandom.x * 6.28) * 0.14;
 
           vec4 mvPosition = modelViewMatrix * vec4(pos, 1.0);
           gl_Position = projectionMatrix * mvPosition;
 
           // Fine-grained silver dust grain size
-          float grain = uPointSize * currentSize * (0.85 + aRandom.z * 0.30);
-          gl_PointSize = clamp(grain * uDpr * (110.0 / -mvPosition.z), 1.8, 3.8);
+          float grain = uPointSize * currentSize * (0.88 + aRandom.z * 0.24);
+          gl_PointSize = clamp(grain * uDpr * (110.0 / -mvPosition.z), 1.6, 3.6);
 
           vAlpha = baseAlpha;
           vColor = currentTone;
@@ -481,7 +485,7 @@ export class CinematicParticleEngine {
           if (dist > 0.5) discard;
 
           // Crisp sub-pixel circular alpha falloff with solid luminous core
-          float edge = smoothstep(0.5, 0.08, dist);
+          float edge = smoothstep(0.5, 0.05, dist);
           gl_FragColor = vec4(vColor, vAlpha * edge);
         }
       `,
@@ -573,7 +577,6 @@ export class CinematicParticleEngine {
   public prepareRing(): void {
     if (this.ringMesh) {
       this.ringMesh.visible = true
-      // Sphere stays centered — no drop mechanic
       this.ringMesh.position.set(0, 0, 0)
       this.ringMesh.scale.set(1, 1, 1)
     }
@@ -586,6 +589,7 @@ export class CinematicParticleEngine {
     this.uniforms.uIsScrollActive.value = 0.0
     this.uniforms.uScrollProgress.value = 0.0
     this.lightUniforms.uScrollProgress.value = 0.0
+    this.lightUniforms.uIntensity.value = 0.0
     this.isTabletopActive = false
     this.isScrollControlActive = false
   }
@@ -598,21 +602,13 @@ export class CinematicParticleEngine {
     this.ringMesh.scale.y = scaleY
   }
 
+  public setLightIntensity(val: number): void {
+    this.lightUniforms.uIntensity.value = val
+  }
+
   public triggerImpactBurst(): void {
     if (this.ringMesh) this.ringMesh.visible = false
     if (!this.targets) return
-    this.setTargetState(this.targets.impactBurst)
-    this.uniforms.uOpacity.value = 1.0
-  }
-
-  /**
-   * Detonates the sphere in-place (center position) scattering particles
-   * to ALL edges of the viewport — fills the full screen with grain.
-   */
-  public triggerCenterBurst(): void {
-    if (this.ringMesh) this.ringMesh.visible = false
-    if (!this.targets) return
-    // Use impactBurst targets but they already scatter across full viewport
     this.setTargetState(this.targets.impactBurst)
     this.uniforms.uOpacity.value = 1.0
   }
@@ -632,6 +628,10 @@ export class CinematicParticleEngine {
     this.uniforms.uDispersal.value = 0.0
   }
 
+  public triggerAtifDissolution(): void {
+    this.uniforms.uDissolveProgress.value = 0.0
+  }
+
   public morphToPortfolio(): void {
     if (!this.targets) return
     this.setTargetState(
@@ -645,12 +645,6 @@ export class CinematicParticleEngine {
     this.uniforms.uOpacity.value = 1.0
     this.uniforms.uDissolveProgress.value = 0.0
     this.uniforms.uDispersal.value = 0.0
-  }
-
-  public triggerPortfolioBurst(): void {
-    if (!this.targets) return
-    this.setTargetState(this.targets.impactBurst)
-    this.uniforms.uLetterStep.value = 9.9
   }
 
   public morphToPortrait(): void {
@@ -669,19 +663,6 @@ export class CinematicParticleEngine {
     this.uniforms.uLetterStep.value = 0.0
   }
 
-  public disperseToTable(): void {
-    if (!this.targets) return
-    this.setTargetState(
-      this.targets.table,
-      undefined,
-      undefined,
-      undefined,
-      this.targets.tableTones,
-      this.targets.tableSizes
-    )
-    this.isTabletopActive = true
-  }
-
   public setSettledState(): void {
     if (this.ringMesh) this.ringMesh.visible = false
     if (!this.targets) return
@@ -695,6 +676,7 @@ export class CinematicParticleEngine {
     this.uniforms.uIsScrollActive.value = 1.0
     this.uniforms.uScrollProgress.value = 0.0
     this.lightUniforms.uScrollProgress.value = 0.0
+    this.lightUniforms.uIntensity.value = 0.85
     this.isTabletopActive = false
     this.isScrollControlActive = true
   }
@@ -703,7 +685,6 @@ export class CinematicParticleEngine {
 
   private handleMouseMove = (event: MouseEvent): void => {
     if (!this.projection) return
-    // Convert normalized mouse coordinates into 3D world space
     const nx = event.clientX / window.innerWidth
     const ny = event.clientY / window.innerHeight
     const world = this.projection.toWorld(nx, ny)
@@ -711,7 +692,6 @@ export class CinematicParticleEngine {
   }
 
   private handleMouseLeave = (): void => {
-    // Gracefully decay mouse influence off-screen when cursor/finger leaves
     this.targetMouse.set(9999, 9999)
   }
 
@@ -724,23 +704,67 @@ export class CinematicParticleEngine {
     this.targetMouse.set(world.x, world.y)
   }
 
-  private handleResize = (): void => {
+  public handleResize = async (): Promise<void> => {
     if (!this.container || !this.camera || !this.renderer) return
     const width = this.container.clientWidth || window.innerWidth
     const height = this.container.clientHeight || window.innerHeight
 
+    const prevIsMobile = this.projection?.isMobile
     this.projection = calculateViewportProjection(width, height, 110, 54)
     this.camera.aspect = width / height
     this.camera.updateProjectionMatrix()
     this.renderer.setSize(width, height)
 
-    // Dynamically adjust atmospheric light mesh dimensions on viewport resize
     if (this.lightMesh && this.projection) {
       const planeW = this.projection.visibleWidth * 1.6
       const planeH = this.projection.visibleHeight * 1.6
       this.lightMesh.geometry.dispose()
       this.lightMesh.geometry = new THREE.PlaneGeometry(planeW, planeH)
       this.lightUniforms.uAspect.value = this.projection.visibleWidth / this.projection.visibleHeight
+    }
+
+    if (this.projection.isMobile) {
+      this.targetMouse.set(9999, 9999)
+      this.currentMouse.set(9999, 9999)
+      this.uniforms.uMouse.value.set(9999, 9999)
+      if (this.particlePoints) {
+        this.particlePoints.rotation.set(0, 0, 0)
+      }
+    }
+
+    if (prevIsMobile !== undefined && prevIsMobile !== this.projection.isMobile && this.geometry) {
+      this.targets = await generateAllParticleTargets(this.particleCount, this.projection)
+
+      const portraitPosAttr = this.geometry.getAttribute('aPortraitPos') as THREE.BufferAttribute | undefined
+      const portraitBrightAttr = this.geometry.getAttribute('aPortraitBrightness') as THREE.BufferAttribute | undefined
+      const portraitSizeAttr = this.geometry.getAttribute('aPortraitSize') as THREE.BufferAttribute | undefined
+      const portraitToneAttr = this.geometry.getAttribute('aPortraitTone') as THREE.BufferAttribute | undefined
+      const tablePosAttr = this.geometry.getAttribute('aTablePos') as THREE.BufferAttribute | undefined
+
+      if (portraitPosAttr && this.targets.portrait) {
+        (portraitPosAttr.array as Float32Array).set(this.targets.portrait)
+        portraitPosAttr.needsUpdate = true
+      }
+      if (portraitBrightAttr && this.targets.portraitBrightness) {
+        (portraitBrightAttr.array as Float32Array).set(this.targets.portraitBrightness)
+        portraitBrightAttr.needsUpdate = true
+      }
+      if (portraitSizeAttr && this.targets.portraitSizes) {
+        (portraitSizeAttr.array as Float32Array).set(this.targets.portraitSizes)
+        portraitSizeAttr.needsUpdate = true
+      }
+      if (portraitToneAttr && this.targets.portraitTones) {
+        (portraitToneAttr.array as Float32Array).set(this.targets.portraitTones)
+        portraitToneAttr.needsUpdate = true
+      }
+      if (tablePosAttr && this.targets.table) {
+        (tablePosAttr.array as Float32Array).set(this.targets.table)
+        tablePosAttr.needsUpdate = true
+      }
+
+      if (this.isScrollControlActive || this.uniforms.uIsScrollActive.value > 0.5) {
+        this.setSettledState()
+      }
     }
   }
 
@@ -755,7 +779,6 @@ export class CinematicParticleEngine {
 
     if (!this.scene || !this.camera || !this.renderer) return
 
-    // High-precision delta timing without deprecated THREE.Clock
     const now = performance.now()
     const delta = Math.min((now - this.lastFrameTime) * 0.001, 0.1)
     this.lastFrameTime = now
@@ -774,19 +797,28 @@ export class CinematicParticleEngine {
       this.uniforms.uTime.value += delta
       this.lightUniforms.uTime.value += delta
 
-      // Smooth cursor interpolation
+      // Smooth cursor interpolation (damping 0.08)
       this.currentMouse.lerp(this.targetMouse, 0.08)
       this.uniforms.uMouse.value.copy(this.currentMouse)
 
-      // Dynamic 3D perspective parallax rotation calibrated for wide monitors
+      // Perspective parallax rotation calibrated for desktop displays
       if (this.particlePoints && (this.isScrollControlActive || this.uniforms.uIsScrollActive.value > 0.5)) {
-        const halfW = this.projection ? this.projection.visibleWidth * 0.5 : 80
-        const halfH = this.projection ? this.projection.visibleHeight * 0.5 : 60
-        const normX = Math.max(-1.5, Math.min(1.5, this.currentMouse.x / halfW))
-        const normY = Math.max(-1.5, Math.min(1.5, this.currentMouse.y / halfH))
+        let targetRotY = 0
+        let targetRotX = 0
 
-        this.particlePoints.rotation.y = THREE.MathUtils.lerp(this.particlePoints.rotation.y, normX * 0.065, 0.05)
-        this.particlePoints.rotation.x = THREE.MathUtils.lerp(this.particlePoints.rotation.x, -normY * 0.042, 0.05)
+        const isMouseActive = Math.abs(this.currentMouse.x) < 500 && Math.abs(this.currentMouse.y) < 500
+        if (isMouseActive && this.projection && !this.projection.isMobile) {
+          const halfW = this.projection.visibleWidth * 0.5
+          const halfH = this.projection.visibleHeight * 0.5
+          const normX = Math.max(-1.0, Math.min(1.0, this.currentMouse.x / halfW))
+          const normY = Math.max(-1.0, Math.min(1.0, this.currentMouse.y / halfH))
+
+          targetRotY = normX * 0.035
+          targetRotX = -normY * 0.024
+        }
+
+        this.particlePoints.rotation.y = THREE.MathUtils.lerp(this.particlePoints.rotation.y, targetRotY, 0.06)
+        this.particlePoints.rotation.x = THREE.MathUtils.lerp(this.particlePoints.rotation.x, targetRotX, 0.06)
       }
     }
 

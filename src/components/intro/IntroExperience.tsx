@@ -2,7 +2,7 @@ import { useEffect, useRef, useState, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { FastForward, Sparkles } from 'lucide-react'
 import { CinematicParticleEngine } from '../canvas/CinematicParticleEngine'
-import { IntroTimeline } from './IntroTimeline'
+import { IntroTimeline, type IntroPhase } from './IntroTimeline'
 
 interface IntroExperienceProps {
   onIntroComplete?: () => void
@@ -27,7 +27,7 @@ export function IntroExperience({
     }
     return true
   })
-  const [currentStage, setCurrentStage] = useState('LOADER')
+  const [currentStage, setCurrentStage] = useState<IntroPhase>('void')
   const [engineReady, setEngineReady] = useState(false)
 
   const onIntroCompleteRef = useRef(onIntroComplete)
@@ -59,8 +59,14 @@ export function IntroExperience({
   const replayIntro = useCallback(() => {
     if (!engineRef.current) return
     window.scrollTo({ top: 0, behavior: 'instant' })
+
+    if (timelineRef.current) {
+      timelineRef.current.kill()
+      timelineRef.current = null
+    }
+
     setIsIntroActive(true)
-    setCurrentStage('LOADER')
+    setCurrentStage('void')
 
     if (onIntroStartRef.current) {
       onIntroStartRef.current()
@@ -71,17 +77,18 @@ export function IntroExperience({
       onComplete: handleFinish,
     })
     timelineRef.current = tl
+    if (typeof window !== 'undefined') {
+      ;(window as unknown as { __INTRO_TIMELINE__: IntroTimeline }).__INTRO_TIMELINE__ = tl
+    }
     tl.start()
   }, [handleFinish])
 
-  // Register replay function with parent
   useEffect(() => {
     if (onRegisterReplay) {
       onRegisterReplay(replayIntro)
     }
   }, [onRegisterReplay, replayIntro])
 
-  // Keyboard shortcut [Esc] to skip intro
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape' && isIntroActive) {
@@ -92,7 +99,6 @@ export function IntroExperience({
     return () => window.removeEventListener('keydown', handleKeyDown)
   }, [isIntroActive, skipIntro])
 
-  // Initialize engine and intro sequence
   useEffect(() => {
     const container = containerRef.current
     if (!container) return
@@ -148,32 +154,36 @@ export function IntroExperience({
 
   return (
     <>
-      {/* Three.js Particle Canvas (Persistent background across both intro and portfolio) */}
+      {/* Three.js Particle Canvas (Persistent background across intro and portfolio) */}
       <div
         ref={containerRef}
         aria-hidden="true"
         className="fixed inset-0 z-0 pointer-events-none overflow-hidden bg-black"
       />
 
-      {/* Cinematic Intro Overlay & Controls */}
+      {/* Cinematic Intro Overlay & HUD Controls */}
       <AnimatePresence>
         {isIntroActive && (
           <motion.div
             initial={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-            className="fixed inset-0 z-50 pointer-events-none flex flex-col justify-between p-6 sm:p-10"
+            transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
+            className="fixed inset-0 z-50 pointer-events-none flex flex-col justify-between p-5 sm:p-10"
           >
             {/* Top Bar with Stage Badge & Skip Control */}
             <div className="flex items-center justify-between w-full max-w-7xl mx-auto pointer-events-auto">
-              <div className="flex items-center gap-2.5 font-mono-code text-[11px] text-zinc-400 uppercase tracking-widest bg-black/60 backdrop-blur-md border border-white/10 px-3 py-1.5 rounded-full">
+              <div className="flex items-center gap-2.5 font-mono-code text-[11px] text-zinc-300 uppercase tracking-widest bg-black/70 backdrop-blur-md border border-white/10 px-3.5 py-1.5 rounded-full shadow-[0_4px_20px_rgba(0,0,0,0.6)]">
                 <Sparkles className="w-3.5 h-3.5 text-white animate-pulse" />
                 <span>
-                  {(currentStage === 'LOADER' || currentStage === 'RING') && '01 / Initializing System'}
-                  {currentStage === 'IMPACT' && '02 / Particle Dispersion'}
-                  {currentStage === 'ATIF' && '03 / Typography Convergence'}
-                  {currentStage === 'PORTFOLIO' && '04 / Kinetic Assembly'}
-                  {currentStage === 'PORTRAIT' && '05 / Sculpting Portrait'}
+                  {currentStage === 'void' && '01 / The Void'}
+                  {currentStage === 'ring' && '02 / Silver Ring Formation'}
+                  {currentStage === 'impact' && '03 / Surface Impact'}
+                  {currentStage === 'atif' && '04 / ATIF Convergence'}
+                  {currentStage === 'dissolution' && '05 / Particle Dissolution'}
+                  {currentStage === 'portfolio' && '06 / PORTFOLIO Assembly'}
+                  {currentStage === 'transition' && '07 / Vector Transition'}
+                  {currentStage === 'portrait' && '08 / Sculpting Portrait'}
+                  {currentStage === 'settled' && '09 / System Ready'}
                 </span>
               </div>
 
@@ -183,7 +193,7 @@ export function IntroExperience({
                   type="button"
                   onClick={skipIntro}
                   aria-label="Skip Cinematic Intro"
-                  className="group inline-flex items-center gap-2 px-3.5 py-1.5 border border-white/20 bg-black/75 hover:bg-white hover:text-black hover:border-white text-zinc-300 transition-all duration-200 font-mono-code text-xs uppercase tracking-wider cursor-pointer rounded-full backdrop-blur-md"
+                  className="group inline-flex items-center gap-2 px-3.5 py-1.5 border border-white/20 bg-black/75 hover:bg-white hover:text-black hover:border-white text-zinc-300 transition-all duration-200 font-mono-code text-xs uppercase tracking-wider cursor-pointer rounded-full backdrop-blur-md shadow-[0_4px_20px_rgba(0,0,0,0.6)]"
                 >
                   <span>Skip Intro</span>
                   <FastForward className="w-3.5 h-3.5" />
@@ -195,9 +205,9 @@ export function IntroExperience({
             </div>
 
             {/* Bottom Subtle Status */}
-            <div className="w-full max-w-7xl mx-auto flex items-center justify-between text-[10px] font-mono-code text-zinc-500 uppercase tracking-widest bg-black/40 backdrop-blur-sm px-4 py-1.5 rounded-full border border-white/5">
+            <div className="w-full max-w-7xl mx-auto flex items-center justify-between text-[10px] font-mono-code text-zinc-500 uppercase tracking-widest bg-black/50 backdrop-blur-sm px-4 py-1.5 rounded-full border border-white/5">
               <span>Mohammed Atif / Precision Particle Cinema</span>
-              <span>Three.js + GSAP Shader Engine</span>
+              <span>Three.js WebGL + GSAP Engine</span>
             </div>
           </motion.div>
         )}
