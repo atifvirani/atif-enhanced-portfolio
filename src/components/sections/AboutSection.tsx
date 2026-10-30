@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from 'react'
+import { useRef } from 'react'
 import { motion, type Variants } from 'framer-motion'
 import { PORTFOLIO_CONFIG } from '../../config/portfolioConfig'
 import { ScrambleHover } from '../fancy'
@@ -24,50 +24,39 @@ const staggerContainer: Variants = {
 
 export function AboutSection() {
   const sectionRef = useRef<HTMLElement>(null)
-  const [scrollYProgress, setScrollYProgress] = useState(0)
-
-  useEffect(() => {
-    const handleScroll = () => {
-      if (!sectionRef.current) return
-      const rect = sectionRef.current.getBoundingClientRect()
-      const windowHeight = window.innerHeight
-
-      if (rect.top < windowHeight && rect.bottom > 0) {
-        const progress = Math.min(1, Math.max(0, (windowHeight - rect.top) / (windowHeight + rect.height)))
-        setScrollYProgress(progress)
-      }
-    }
-
-    window.addEventListener('scroll', handleScroll, { passive: true })
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
 
   const capabilities = [
     {
       num: '01',
-      title: 'Real-Time Graphics & GLSL',
+      title: 'Full-Stack Product Engineering',
       description:
-        'Building procedural particle engines, custom GLSL vertex/fragment shaders, and hardware-accelerated 3D scenes engineered for buttery 60 FPS performance.',
+        'Building end-to-end web architectures, type-safe APIs, and containerized backend services using React 19, TypeScript, Node.js, and Supabase with Row-Level Security.',
     },
     {
       num: '02',
-      title: 'Cinematic Timeline Choreography',
+      title: 'Local-First & Offline Systems',
       description:
-        'Orchestrating precision multi-stage animation sequences, scroll-bound spatial morphs, and responsive physics using GSAP, ScrollTrigger, and Framer Motion.',
+        'Architecting resilient applications with client-side persistence, IndexedDB, Dexie.js, and local-first data synchronization models.',
     },
     {
       num: '03',
-      title: 'Production Frontend Architecture',
+      title: 'Custom Agentic AI & Systems',
       description:
-        'Architecting robust component hierarchies, type-safe state machines, mathematical typographic scales, and clean modular systems in React and TypeScript.',
+        'Integrating multimodal AI workflows, Ollama local inference, OCR document extraction, and autonomous agent orchestration into practical digital tools.',
+    },
+    {
+      num: '04',
+      title: 'Tactile UI/UX & Spatial Motion',
+      description:
+        'Designing thoughtful user interfaces with Three.js WebGL particle physics, custom shaders, and fluid Framer Motion choreography.',
     },
   ]
 
   const metadata = [
-    { label: 'DISCIPLINE', value: 'Creative Developer & Graphics Engineer' },
+    { label: 'DISCIPLINE', value: PORTFOLIO_CONFIG.personal.title },
     { label: 'LOCATION', value: `${PORTFOLIO_CONFIG.personal.location} (${PORTFOLIO_CONFIG.personal.timezone})` },
-    { label: 'METHODOLOGY', value: 'Computational Geometry & Restrained Contrast' },
-    { label: 'STATUS', value: 'Open for Select Collaborations' },
+    { label: 'CURRENT ROLE', value: PORTFOLIO_CONFIG.personal.responsibility },
+    { label: 'ACADEMIC PATH', value: 'Class 12 PCMB + IT · JEE Main Preparation' },
   ]
 
   return (
@@ -84,22 +73,15 @@ export function AboutSection() {
         variants={revealVariant}
         className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-10 border-b border-white/[0.08]"
       >
-        <div className="flex items-center gap-3 font-mono-code text-xs uppercase tracking-[0.25em] text-zinc-500">
-          <span className="text-white font-semibold">02</span>
-          <span className="w-10 h-px bg-zinc-700 relative overflow-hidden">
-            <span
-              className="absolute inset-y-0 left-0 bg-white transition-all duration-75"
-              style={{ width: `${Math.round(scrollYProgress * 100)}%` }}
-            />
-          </span>
+        <div className="flex items-center gap-3 font-mono-code text-xs uppercase tracking-[0.25em] text-zinc-400">
           <ScrambleHover text="ABOUT ME" scrambleSpeed={30} maxIterations={8} />
         </div>
         <div className="font-mono-code text-[11px] text-zinc-500 uppercase tracking-widest">
-          <span>Engineering Philosophy / Personal Index</span>
+          <span>Engineering Philosophy</span>
         </div>
       </motion.div>
 
-      {/* Main Editorial Asymmetric Layout (Option B: High-End Editorial Tech, No Images) */}
+      {/* Main Editorial Asymmetric Layout */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 pt-12 lg:pt-16 items-start">
         {/* Left Column: Core Ethos Headline & Technical Capabilities */}
         <motion.div
@@ -111,17 +93,17 @@ export function AboutSection() {
         >
           <div className="space-y-5">
             <p className="font-mono-code text-xs uppercase tracking-[0.25em] text-zinc-500">
-              <ScrambleHover text="[ 01 // CORE ETHOS ]" scrambleSpeed={25} maxIterations={8} />
+              <ScrambleHover text="Core Ethos" scrambleSpeed={25} maxIterations={8} />
             </p>
             <h2 className="font-serif-luxury text-2xl sm:text-4xl lg:text-[2.75rem] font-medium text-white tracking-wide leading-[1.25]">
-              Engineering digital experiences with uncompromising rigor and spatial depth.
+              Building real software products with architectural rigor and tactile craft.
             </h2>
           </div>
 
           {/* Capabilities List */}
           <div className="space-y-6 pt-6 border-t border-white/[0.08]">
             <p className="font-mono-code text-xs uppercase tracking-[0.25em] text-zinc-500 mb-6">
-              <ScrambleHover text="[ 02 // TECHNICAL FOCUS ]" scrambleSpeed={25} maxIterations={8} />
+              <ScrambleHover text="Engineering Approach" scrambleSpeed={25} maxIterations={8} />
             </p>
             <motion.div
               initial="hidden"
@@ -163,29 +145,29 @@ export function AboutSection() {
         >
           <div className="space-y-6">
             <p className="font-mono-code text-xs uppercase tracking-[0.25em] text-zinc-500">
-              <ScrambleHover text="[ 03 // NARRATIVE ]" scrambleSpeed={25} maxIterations={8} />
+              <ScrambleHover text="Background" scrambleSpeed={25} maxIterations={8} />
             </p>
             
             {/* High-contrast opening statement */}
             <p className="font-sans text-lg sm:text-xl text-[#F1F5F9] font-light leading-[1.65]">
-              I am <strong className="text-white font-medium">Mohammed Atif</strong> — a creative developer focused on crafting interactive digital architectures that unite real-time 3D graphics, procedural particle mechanics, and high-performance frontend engineering.
+              I am <strong className="text-white font-medium">Mohammed Atif</strong> — a full-stack software developer, UI/UX designer, and AI systems builder based in Cuttack, Odisha, India. Currently serving as CTO and Lead Architect at BaseCamp Education.
             </p>
 
             {/* Supporting idea block 1 */}
             <p className="font-sans text-base sm:text-[17px] text-[#A1A1AA] leading-[1.68]">
-              Rather than assembling generic template components or superficial decorative animations, my practice treats code as an architectural medium. Every interaction is mathematically grounded—from custom GLSL vertex shaders to precision timeline state machines—ensuring experiences that feel tactile, responsive, and physically coherent.
+              Rather than assembling static demonstrations, my engineering approach emphasizes real utility: local-first and offline-first architectures, self-hosted environments, custom agentic AI orchestration, and practical integration across frontend, backend, databases, and deployment infrastructure.
             </p>
 
             {/* Supporting idea block 2 */}
             <p className="font-sans text-base sm:text-[17px] text-[#A1A1AA] leading-[1.68]">
-              Based in Global Remote ({PORTFOLIO_CONFIG.personal.timezone}), I collaborate with design studios, technology innovators, and forward-looking product teams seeking signature web experiences that leave a lasting impression.
+              Alongside my product and architectural responsibilities at BaseCamp Education, I completed my second year in Class 12 Science (PCMB with Information Technology) at Stewart Science Higher Secondary School, with dedicated preparation for the JEE Main examination.
             </p>
           </div>
 
           {/* Operational Metadata Grid */}
           <div className="pt-8 border-t border-white/[0.08] space-y-4">
             <p className="font-mono-code text-xs uppercase tracking-[0.25em] text-zinc-500 mb-6">
-              <ScrambleHover text="[ 04 // OPERATIONAL METADATA ]" scrambleSpeed={25} maxIterations={8} />
+              <ScrambleHover text="Profile Details" scrambleSpeed={25} maxIterations={8} />
             </p>
             <motion.div
               initial="hidden"
@@ -215,4 +197,3 @@ export function AboutSection() {
     </section>
   )
 }
-

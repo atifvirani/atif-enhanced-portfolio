@@ -423,7 +423,7 @@ export function AsciiWordmarkCanvas({
       onPointerLeave={handlePointerLeave}
       onPointerCancel={handlePointerLeave}
       className={`relative w-full overflow-hidden select-none touch-none ${className}`}
-      style={{ cursor: 'crosshair' }}
+      style={{ cursor: 'default' }}
       aria-label="Interactive ASCII ATIF typographic canvas"
     >
       <canvas

@@ -35,9 +35,7 @@ export function SkillsSection() {
         className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16"
       >
         <div className="space-y-3">
-          <div className="flex items-center gap-2 font-mono-code text-xs uppercase tracking-[0.25em] text-zinc-500">
-            <span>04</span>
-            <span className="w-8 h-[1px] bg-zinc-700" />
+          <div className="font-mono-code text-xs uppercase tracking-[0.25em] text-zinc-400">
             <span>Technical Capabilities</span>
           </div>
           <h2 className="font-serif-luxury text-3xl sm:text-5xl font-medium tracking-tight text-white">
@@ -57,18 +55,12 @@ export function SkillsSection() {
         variants={staggerContainer}
         className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12"
       >
-        {PORTFOLIO_CONFIG.skills.map((group, index) => (
+        {PORTFOLIO_CONFIG.skills.map((group) => (
           <motion.div
             key={group.category}
             variants={revealVariant}
-            className="p-8 sm:p-10 border border-white/[0.08] bg-zinc-950/40 hover:border-white/20 transition-all duration-300 space-y-6"
+            className="p-8 sm:p-10 border border-white/[0.08] bg-zinc-950/40 hover:border-white/20 transition-all duration-300 space-y-5"
           >
-            <div className="flex items-center justify-between border-b border-white/[0.06] pb-4">
-              <span className="font-mono-code text-xs text-zinc-500 tracking-wider">
-                CAP-0{index + 1}
-              </span>
-              <span className="w-1.5 h-1.5 bg-white/40" />
-            </div>
 
             <div className="space-y-2">
               <h3 className="font-editorial text-xl sm:text-2xl font-bold text-white tracking-wide uppercase">

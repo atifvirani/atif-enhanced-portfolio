@@ -203,6 +203,85 @@ export class IntroTimeline {
     }
   }
 
+  public jumpToStage(stageIndex: number): void {
+    this.kill()
+    switch (stageIndex) {
+      case 1: // 01. Initial black void
+        this.enterPhase('void')
+        this.engine.uniforms.uOpacity.value = 0.0
+        this.engine.setLightIntensity(0.0)
+        break
+      case 2: // 02. Ring formation
+        this.enterPhase('ring')
+        this.engine.uniforms.uOpacity.value = 1.0
+        this.engine.updateRingProgress(0.75, 0, 1.0, 1.0)
+        this.engine.setLightIntensity(0.20)
+        break
+      case 3: // 03. Ring falling and impact
+        this.enterPhase('ring')
+        this.engine.uniforms.uOpacity.value = 1.0
+        this.engine.updateRingProgress(1.0, -5.5, 0.75, 1.0)
+        this.engine.setLightIntensity(0.48)
+        break
+      case 4: // 04. Particle dispersion
+        this.enterPhase('impact')
+        this.engine.uniforms.uDispersal.value = 0.60
+        this.engine.uniforms.uProgress.value = 0.50
+        this.engine.setLightIntensity(0.48)
+        break
+      case 5: // 05. ATIF particle formation
+        this.enterPhase('atif')
+        this.engine.uniforms.uProgress.value = 1.0
+        this.engine.uniforms.uDispersal.value = 0.0
+        this.engine.uniforms.uDissolveProgress.value = 0.0
+        this.engine.setLightIntensity(0.60)
+        break
+      case 6: // 06. ATIF disintegration
+        this.enterPhase('dissolution')
+        this.engine.morphToAtif()
+        this.engine.uniforms.uProgress.value = 1.0
+        this.engine.uniforms.uDissolveProgress.value = 0.65
+        this.engine.uniforms.uDispersal.value = 0.12
+        this.engine.setLightIntensity(0.55)
+        break
+      case 7: // 07. PORTFOLIO particle formation
+        this.enterPhase('portfolio')
+        this.engine.uniforms.uProgress.value = 1.0
+        this.engine.uniforms.uLetterStep.value = 10.0
+        this.engine.uniforms.uDispersal.value = 0.0
+        this.engine.setLightIntensity(0.68)
+        break
+      case 8: // 08. PORTFOLIO dispersal
+        this.enterPhase('transition')
+        this.engine.uniforms.uDispersal.value = 0.18
+        this.engine.setLightIntensity(0.72)
+        break
+      case 9: // 09. Portrait reconstruction
+        this.enterPhase('portrait')
+        this.engine.uniforms.uProgress.value = 0.85
+        this.engine.uniforms.uDispersal.value = 0.03
+        this.engine.setLightIntensity(0.85)
+        break
+      case 10: // 10. Final settled hero
+        this.enterPhase('settled')
+        if (this.options.onComplete) {
+          this.options.onComplete()
+        }
+        break
+      case 11: // 11. Replay transition
+        this.enterPhase('void')
+        this.engine.uniforms.uOpacity.value = 0.0
+        this.engine.setLightIntensity(0.0)
+        break
+      case 12: // 12. First scroll
+        this.enterPhase('settled')
+        if (this.options.onComplete) {
+          this.options.onComplete()
+        }
+        break
+    }
+  }
+
   public kill(): void {
     if (this.timeline) {
       this.timeline.kill()

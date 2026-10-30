@@ -1,4 +1,4 @@
-import { ArrowUpRight, RotateCcw, Sparkles } from 'lucide-react'
+import { ArrowUpRight, RotateCcw } from 'lucide-react'
 import { PORTFOLIO_CONFIG } from '../../config/portfolioConfig'
 import { AsciiWordmarkCanvas } from '../canvas/AsciiWordmarkCanvas'
 import { LetterSwap, UnderlineAnimation } from '../fancy'
@@ -37,39 +37,17 @@ export function Footer({ onReplayIntro }: FooterProps) {
     }
   }
 
+  // Filter only confirmed social channels (hide placeholders)
+  const confirmedSocials = PORTFOLIO_CONFIG.socials.filter(
+    (link) => link.confirmed !== false && link.href && !link.href.endsWith('linkedin.com') && !link.href.endsWith('twitter.com')
+  )
+
   return (
     <footer className="relative z-10 w-full border-t border-white/[0.12] bg-[#050505] text-zinc-400 overflow-hidden">
       {/* 1. Signature Interactive ASCII Typographic Stage */}
       <div className="w-full max-w-7xl mx-auto px-4 sm:px-8 lg:px-12 pt-12 sm:pt-16 pb-8">
-        <div className="relative border border-white/[0.10] bg-black rounded-none shadow-[0_24px_60px_rgba(0,0,0,0.95)] overflow-hidden">
-          {/* Top Stage HUD Controls & Metadata */}
-          <div className="flex items-center justify-between px-4 sm:px-6 py-3 border-b border-white/[0.08] bg-zinc-950/70 font-mono-code text-[10px] sm:text-[11px] uppercase tracking-widest text-zinc-500 select-none">
-            <div className="flex items-center gap-3">
-              <span className="text-white font-semibold tracking-wider">ATIF®</span>
-              <span className="hidden sm:inline text-zinc-600">/</span>
-              <span className="hidden sm:inline text-zinc-400">SIGNATURE CANVAS</span>
-            </div>
-            <div className="flex items-center gap-3">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-              <span className="text-zinc-400">DIGITAL // 01</span>
-            </div>
-          </div>
-
-          {/* Full-width interactive ASCII Canvas */}
-          <div className="relative w-full bg-[#050505]">
-            <AsciiWordmarkCanvas wordmark="ATIF" />
-          </div>
-
-          {/* Bottom Stage Footnote Labels */}
-          <div className="flex items-center justify-between px-4 sm:px-6 py-2.5 border-t border-white/[0.08] bg-zinc-950/70 font-mono-code text-[9px] sm:text-[10px] uppercase tracking-[0.25em] text-zinc-500 select-none">
-            <div className="flex items-center gap-2">
-              <Sparkles className="w-3 h-3 text-zinc-400" />
-              <span>[ 07 // INTERACTIVE TYPOGRAPHY ]</span>
-            </div>
-            <span className="hidden sm:inline text-zinc-400">
-              [ HOVER TO DEFLECT // SPRING RECOVERY ]
-            </span>
-          </div>
+        <div className="relative border border-white/[0.08] bg-[#050505] rounded-none shadow-[0_24px_60px_rgba(0,0,0,0.95)] overflow-hidden">
+          <AsciiWordmarkCanvas wordmark="ATIF" />
         </div>
       </div>
 
@@ -83,16 +61,16 @@ export function Footer({ onReplayIntro }: FooterProps) {
                 {PORTFOLIO_CONFIG.personal.fullName}
               </span>
               <span className="text-[10px] font-mono-code uppercase tracking-wider text-zinc-400 border border-white/10 px-2 py-0.5">
-                PORTFOLIO 2026
+                PORTFOLIO {CURRENT_YEAR}
               </span>
             </div>
             <p className="text-xs sm:text-[13px] text-zinc-400 max-w-md leading-relaxed font-sans">
-              Creative developer and real-time graphics engineer specializing in GPU shader architecture,
-              procedural particle physics, and cinematic UI systems.
+              Full-Stack Software Developer, UI/UX Designer, and AI Systems Builder based in Cuttack, Odisha, India.
+              CTO and Lead Architect at BaseCamp Education.
             </p>
             <div className="pt-2">
-              <div className="inline-flex items-center gap-2 font-mono-code text-[11px] text-zinc-400 py-1 px-2.5 bg-zinc-950 border border-white/10">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse inline-block" />
+              <div className="inline-flex items-center gap-2 font-mono-code text-[11px] text-zinc-300 py-1 px-3 bg-zinc-950 border border-white/10 rounded-full">
+                <span className="w-1.5 h-1.5 rounded-full bg-white/60 inline-block" />
                 <span>{PORTFOLIO_CONFIG.personal.availability}</span>
               </div>
             </div>
@@ -127,7 +105,7 @@ export function Footer({ onReplayIntro }: FooterProps) {
               Network Channels
             </span>
             <div className="flex flex-wrap gap-2.5">
-              {PORTFOLIO_CONFIG.socials.map((link) => (
+              {confirmedSocials.map((link) => (
                 <a
                   key={link.label}
                   href={link.href}
@@ -165,20 +143,16 @@ export function Footer({ onReplayIntro }: FooterProps) {
             </div>
           </div>
         </div>
-      </div>
 
-      {/* 3. Bottom Legal & Operational Bar */}
-      <div className="w-full border-t border-white/[0.04] bg-black/60 py-6 px-4 sm:px-8 lg:px-12">
-        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] font-mono-code text-zinc-500">
+        {/* 3. Bottom Legal & Colophon Strip */}
+        <div className="mt-12 pt-6 border-t border-white/[0.06] flex flex-col sm:flex-row items-center justify-between gap-4 font-mono-code text-[11px] text-zinc-400">
           <div>
-            © {CURRENT_YEAR} Engineered by {PORTFOLIO_CONFIG.personal.fullName}. All rights reserved.
+            <span>© {CURRENT_YEAR} Mohammed Atif. All rights reserved.</span>
           </div>
-          <div className="flex items-center gap-4 text-[10px] uppercase tracking-wider text-zinc-600">
-            <span>{PORTFOLIO_CONFIG.personal.location}</span>
+          <div className="flex items-center gap-4">
+            <span className="text-zinc-400">Cuttack, Odisha, India</span>
             <span>•</span>
-            <span>{PORTFOLIO_CONFIG.personal.timezone}</span>
-            <span>•</span>
-            <span className="text-zinc-500">HTML5 Canvas 2D</span>
+            <span className="text-zinc-400">{PORTFOLIO_CONFIG.personal.timezone}</span>
           </div>
         </div>
       </div>

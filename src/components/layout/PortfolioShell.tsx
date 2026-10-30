@@ -15,10 +15,10 @@ export function PortfolioShell({
 }: PortfolioShellProps) {
   return (
     <div
-      className={`relative min-h-screen text-white selection:bg-white selection:text-black flex flex-col font-sans ${
+      className={`relative min-h-screen text-white selection:bg-white selection:text-black flex flex-col font-sans transition-all duration-700 ease-out ${
         visible
-          ? 'opacity-100 pointer-events-auto transition-opacity duration-700 ease-out'
-          : 'opacity-0 pointer-events-none transition-opacity duration-150 ease-in'
+          ? 'opacity-100 pointer-events-auto visible'
+          : 'opacity-0 pointer-events-none invisible h-screen overflow-hidden'
       }`}
     >
       {/* Exactly ONE primary navigation bar: Custom top-center Spotlight Navbar */}

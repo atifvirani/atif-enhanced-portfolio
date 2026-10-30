@@ -1,7 +1,6 @@
 import { useEffect, useState, useRef } from 'react'
 import { RotateCcw } from 'lucide-react'
-import { PORTFOLIO_CONFIG } from '../../config/portfolioConfig'
-import { LetterSwap, ScrambleHover } from '../fancy'
+import { LetterSwap } from '../fancy'
 
 interface HeroSectionProps {
   onReplayIntro?: () => void
@@ -21,8 +20,8 @@ export function HeroSection({ onReplayIntro }: HeroSectionProps) {
   }, [])
 
   // Parallax offsets as the hero scrolls away naturally
-  const nameParallaxY = Math.min(60, scrollY * 0.15)
-  const heroOpacity = Math.max(0, 1 - scrollY / 650)
+  const nameParallaxY = Math.min(40, scrollY * 0.12)
+  const heroOpacity = Math.max(0, 1 - scrollY / 350)
 
   return (
     <section
@@ -30,26 +29,8 @@ export function HeroSection({ onReplayIntro }: HeroSectionProps) {
       ref={heroRef}
       className="relative w-full min-h-screen flex flex-col justify-between px-4 sm:px-12 lg:px-20 pt-20 sm:pt-24 lg:pt-24 pb-6 sm:pb-8 max-w-7xl mx-auto overflow-hidden pointer-events-none"
     >
-      {/* Top Quiet Meta Row (Positioned with intentional clearance below Spotlight Navbar) */}
-      <div className="w-full flex items-center justify-between text-[10px] sm:text-[11px] font-mono-code text-zinc-500 uppercase tracking-widest pt-1 pb-2 select-none pointer-events-auto">
-        <div className="flex items-center gap-2 sm:gap-3 max-w-[85vw] sm:max-w-none">
-          <span className="w-1.5 h-1.5 rounded-full bg-emerald-500/80 animate-pulse flex-shrink-0" />
-          <span className="text-zinc-400 truncate sm:hidden">
-            <ScrambleHover text="Creative Developer" scrambleSpeed={35} maxIterations={8} />
-          </span>
-          <span className="text-zinc-400 hidden sm:inline">
-            <ScrambleHover text={PORTFOLIO_CONFIG.personal.title} scrambleSpeed={35} maxIterations={8} />
-          </span>
-        </div>
-        <div className="hidden sm:flex items-center gap-5 text-zinc-500 flex-shrink-0">
-          <ScrambleHover text="Three.js + GLSL" scrambleSpeed={30} maxIterations={8} />
-          <span className="text-zinc-700">|</span>
-          <ScrambleHover text={PORTFOLIO_CONFIG.personal.location} scrambleSpeed={30} maxIterations={8} />
-        </div>
-      </div>
-
       {/* Center 3D Space is kept open for the Three.js Particle Portrait */}
-      <div className="flex-1 w-full min-h-[36vh] sm:min-h-[44vh]" aria-hidden="true" />
+      <div className="flex-1 w-full min-h-[40vh] sm:min-h-[48vh]" aria-hidden="true" />
 
       {/* Hero Typography: MOHAMMED ATIF (High-End Editorial Tech) */}
       <div

@@ -1,5 +1,5 @@
 import { motion, type Variants } from 'framer-motion'
-import { Calendar, Briefcase, Sparkles } from 'lucide-react'
+import { Calendar, Briefcase } from 'lucide-react'
 import { PORTFOLIO_CONFIG } from '../../config/portfolioConfig'
 
 const revealVariant: Variants = {
@@ -36,9 +36,7 @@ export function JourneySection() {
         className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16"
       >
         <div className="space-y-3">
-          <div className="flex items-center gap-2 font-mono-code text-xs uppercase tracking-[0.25em] text-zinc-500">
-            <span>05</span>
-            <span className="w-8 h-[1px] bg-zinc-700" />
+          <div className="font-mono-code text-xs uppercase tracking-[0.25em] text-zinc-400">
             <span>Chronological Milestones</span>
           </div>
           <h2 className="font-serif-luxury text-3xl sm:text-5xl font-medium tracking-tight text-white">
@@ -73,11 +71,6 @@ export function JourneySection() {
                   <span className="font-editorial text-lg sm:text-xl font-bold text-white tracking-wide">
                     {item.role}
                   </span>
-                  {item.isPlaceholder && (
-                    <span className="text-[9px] font-mono-code text-amber-400/90 border border-amber-400/30 px-1.5 py-0.5 rounded uppercase tracking-widest">
-                      Verified Milestone
-                    </span>
-                  )}
                 </div>
                 <div className="flex items-center gap-2 font-mono-code text-xs text-zinc-400">
                   <Calendar className="w-3.5 h-3.5 text-zinc-500" />
@@ -90,7 +83,7 @@ export function JourneySection() {
                 <span>{item.organization}</span>
               </div>
 
-              <p className="text-sm text-zinc-400 leading-relaxed max-w-2xl">
+              <p className="text-sm text-zinc-400 leading-relaxed max-w-2xl font-sans">
                 {item.description}
               </p>
 
@@ -107,17 +100,6 @@ export function JourneySection() {
             </div>
           </motion.div>
         ))}
-      </motion.div>
-
-      <motion.div
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
-        variants={revealVariant}
-        className="mt-12 flex items-center gap-3 font-mono-code text-xs text-zinc-500 pl-3 sm:pl-6"
-      >
-        <Sparkles className="w-4 h-4 text-zinc-400" />
-        <span>Documented progression across real-time graphics, creative engineering, and motion systems.</span>
       </motion.div>
     </section>
   )

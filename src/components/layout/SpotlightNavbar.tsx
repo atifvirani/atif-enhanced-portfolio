@@ -79,7 +79,13 @@ export function SpotlightNavbar({ onReplay, visible = true }: SpotlightNavbarPro
   if (!visible) return null
 
   return (
-    <header className="fixed top-3.5 sm:top-5 left-1/2 -translate-x-1/2 z-50 pointer-events-auto transition-all duration-500 max-w-[96vw]">
+    <header
+      className={`fixed top-3.5 sm:top-5 left-1/2 -translate-x-1/2 z-50 max-w-[96vw] transition-all duration-500 ease-out ${
+        visible
+          ? 'opacity-100 pointer-events-auto translate-y-0 visible'
+          : 'opacity-0 pointer-events-none -translate-y-6 invisible'
+      }`}
+    >
       <nav
         aria-label="Primary Navigation Dock"
         className="relative flex items-center gap-0.5 sm:gap-1 px-1.5 sm:px-2.5 py-1 bg-zinc-950/90 backdrop-blur-2xl border border-white/10 rounded-full shadow-[0_12px_40px_rgba(0,0,0,0.85)]"

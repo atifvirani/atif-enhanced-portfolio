@@ -7,126 +7,175 @@ export interface JourneyMilestone {
   isPlaceholder?: boolean
 }
 
-export const PORTFOLIO_CONFIG = {
+export interface ProjectData {
+  id: string
+  title: string
+  subtitle: string
+  category: string
+  year: string
+  description: string
+  techStack: string[]
+  status: 'Production' | 'Selected Work' | 'Product MVP' | 'Concept Demo' | 'Archived'
+  githubUrl?: string
+  liveUrl?: string
+  thumbnail?: string
+  featured?: boolean
+  displayOrder?: number
+}
+
+export interface SkillGroup {
+  category: string
+  description: string
+  skills: string[]
+}
+
+export interface SocialLink {
+  label: string
+  href: string
+  confirmed?: boolean
+}
+
+export interface PortfolioConfigType {
+  personal: {
+    name: string
+    fullName: string
+    title: string
+    tagline: string
+    bio: string[]
+    location: string
+    timezone: string
+    email?: string
+    responsibility: string
+    education: string
+    portraitUrl: string
+    availability: string
+  }
+  socials: SocialLink[]
+  journey: JourneyMilestone[]
+  projects: ProjectData[]
+  skills: SkillGroup[]
+}
+
+export const PORTFOLIO_CONFIG: PortfolioConfigType = {
   personal: {
     name: 'Atif',
     fullName: 'Mohammed Atif',
-    title: 'Creative Developer & Real-Time Graphics Engineer',
-    tagline: 'Engineering the intersection of code, motion, and real-time 3D.',
+    title: 'Full-Stack Software Developer · UI/UX Designer · AI Systems Builder',
+    tagline: 'Building real software products, local-first architectures, and custom agentic AI systems.',
     bio: [
-      'I am Mohammed Atif — a creative developer who treats code as an architectural medium. I build immersive digital experiences that feel cinematic, tactile, and mathematically grounded.',
-      'My practice sits at the intersection of GPU shader engineering, procedural particle physics, and cinematic motion design. Every experience I build is mathematically rigorous — from custom GLSL vertex shaders that sculpt particle forms to GSAP timelines that choreograph each transition with frame-perfect precision.',
+      'I am Mohammed Atif — a full-stack software developer, UI/UX designer, and AI systems builder based in Cuttack, Odisha, India. Currently serving as CTO and Lead Architect at BaseCamp Education.',
+      'My engineering focus centers on building real software products rather than static demonstrations: local-first and offline-first architectures, self-hosted environments, custom agentic AI orchestration, and tactile, high-performance user interfaces.',
     ],
-    location: 'Global Remote',
+    location: 'Cuttack, Odisha, India',
     timezone: 'UTC+5:30',
-    email: 'mohammedatif.dev@gmail.com',
+    email: '', // Configurable via RECEIVER_EMAIL; GitHub is primary direct channel
+    responsibility: 'CTO & Lead Architect at BaseCamp Education in Cuttack',
+    education: 'Stewart Science Higher Secondary School, Class 12 (PCMB + IT). Dedicated preparation for the JEE Main examination.',
     portraitUrl: '/images/atif-particle-reference.png',
-    availability: 'Open for select creative engineering and studio collaborations',
+    availability: 'Open for Select Collaborations & Technical Architecture',
   },
   socials: [
-    { label: 'GitHub', href: 'https://github.com' },
-    { label: 'LinkedIn', href: 'https://linkedin.com' },
-    { label: 'X / Twitter', href: 'https://twitter.com' },
+    { label: 'GitHub', href: 'https://github.com/atifvirani', confirmed: true },
   ],
   journey: [
     {
-      year: '2025 — Present',
-      role: 'Creative Technologist & Graphics Engineer',
-      organization: 'Independent Studio Practice',
+      year: 'Present',
+      role: 'CTO & Lead Architect',
+      organization: 'BaseCamp Education (Cuttack)',
       description:
-        'Building signature WebGL particle engines, procedural GLSL shader systems, and cinematic UI choreography for high-end digital products and creative studios worldwide.',
-      technologies: ['Three.js', 'GLSL', 'TypeScript', 'GSAP', 'React 19'],
+        'Directing digital platform architecture, learning systems engineering, and technology strategy for educational platforms in Cuttack.',
+      technologies: ['Full-Stack Systems', 'System Architecture', 'Product Engineering'],
       isPlaceholder: false,
     },
     {
       year: '2024 — 2025',
-      role: 'Frontend Systems Engineer',
-      organization: 'Creative Engineering Practice',
+      role: 'Full-Stack & AI Systems Builder',
+      organization: 'Independent Product Development',
       description:
-        'Architecting robust component systems, mathematical typography scales, and performance-critical interactive web applications with frame-perfect animation budgets.',
-      technologies: ['React', 'Next.js', 'Tailwind CSS', 'Vite', 'Framer Motion'],
+        'Architected and deployed NEXORA SEARCH (meta-search engine with Dockerized SearXNG and Supabase) and developed MyPocket (AI finance tracking with Gemini AI and OCR).',
+      technologies: ['React 19', 'TypeScript', 'Docker', 'SearXNG', 'Supabase', 'Gemini AI'],
       isPlaceholder: false,
     },
     {
       year: '2023 — 2024',
-      role: 'Interactive Systems & Creative Computing',
-      organization: 'Self-Directed Research and Exploration',
+      role: 'Higher Secondary Science (PCMB + IT)',
+      organization: 'Stewart Science Higher Secondary School',
       description:
-        'Deep study into computational geometry, real-time WebGL rendering pipelines, timeline orchestration, and spatial web experiences — laying the foundation for GPU-accelerated creative engineering.',
-      technologies: ['Canvas API', 'WebGL', 'JavaScript ESNext', 'Three.js', 'GSAP'],
+        'Completed Class 12 Science curriculum (Physics, Chemistry, Mathematics, Biology, and Information Technology) alongside dedicated preparation for the JEE Main examination. Built DuoSync Booth (Canvas API interactive pose matching).',
+      technologies: ['JavaScript', 'HTML5 Canvas', 'Python', 'Web Fundamentals'],
       isPlaceholder: false,
     },
-  ] as JourneyMilestone[],
+  ],
   projects: [
     {
-      id: 'proj-01',
-      title: 'Real-Time Salt Particle Simulation',
-      subtitle: 'Custom WebGL & GLSL visual pipeline',
+      id: 'proj-nexora',
+      title: 'NEXORA SEARCH',
+      subtitle: 'Private Meta-Search Platform',
+      category: 'Full-Stack Platform',
+      year: '2025',
+      description:
+        'A personal meta-search platform intended to unify web, image, video, news, and technical documentation discovery in one research-oriented interface. Powered by a Dockerized SearXNG backend, Supabase authentication with Row-Level Security, and a responsive React 19 interface.',
+      techStack: ['React 19', 'TypeScript', 'Docker', 'SearXNG', 'Supabase', 'Tailwind CSS', 'REST APIs'],
+      status: 'Production',
+      githubUrl: 'https://github.com/atifvirani/NEXORA-SEARCH',
+      liveUrl: 'https://nexorabyatif.netlify.app/',
+      featured: true,
+      displayOrder: 1,
+    },
+    {
+      id: 'proj-mypocket',
+      title: 'MyPocket',
+      subtitle: 'Mobile-First AI Finance & Expense Tracker',
+      category: 'Product Engineering',
+      year: '2025',
+      description:
+        'A mobile-first personal finance application concept focused on expense tracking and easier transaction capture. Features multi-input capture with manual entry, receipt OCR scanning, voice transcription, and Supabase data persistence.',
+      techStack: ['React', 'TypeScript', 'Supabase', 'Capacitor', 'PostgreSQL', 'Gemini AI'],
+      status: 'Product MVP',
+      githubUrl: 'https://github.com/atifvirani/Mypocket',
+      featured: true,
+      displayOrder: 2,
+    },
+    {
+      id: 'proj-duosync',
+      title: 'DuoSync Booth',
+      subtitle: 'Interactive Dual-Pose Photo Strip Concept',
       category: 'Creative Computing',
-      year: '2026',
-      description:
-        'GPU-accelerated particle system with custom buffer geometries, multi-stage typography and portrait morphing, and continuous fluid GPU simulations — 32,000+ silver particles at locked 60 FPS.',
-      techStack: ['Three.js', 'WebGL', 'GLSL', 'TypeScript', 'GSAP'],
-      status: 'Selected Work' as const,
-      githubUrl: 'https://github.com',
-    },
-    {
-      id: 'proj-02',
-      title: 'Cinematic Timeline & Motion Choreography',
-      subtitle: 'Sequential choreography framework',
-      category: 'Motion Engineering',
-      year: '2025',
-      description:
-        'Precision animation framework orchestrating multi-phase timeline sequences, scroll-bound spatial morphs, and fluid interactive choreography with mathematically tuned easing curves.',
-      techStack: ['GSAP', 'Framer Motion', 'React 19', 'TypeScript'],
-      status: 'Production' as const,
-      githubUrl: 'https://github.com',
-    },
-    {
-      id: 'proj-03',
-      title: 'Spotlight Dock & Editorial Design System',
-      subtitle: 'Monochrome typographical architecture',
-      category: 'Design Systems',
-      year: '2025',
-      description:
-        'Tactile navigation dock with real-time dynamic spotlight cone, strict typographic scale, mathematical spacing, and zero external UI kit dependencies.',
-      techStack: ['React', 'Tailwind CSS v4', 'CSS Variables', 'Motion'],
-      status: 'Selected Work' as const,
-      githubUrl: 'https://github.com',
-    },
-    {
-      id: 'proj-04',
-      title: 'Spatial Canvas & Dynamic Shader Mesh',
-      subtitle: 'Interactive real-time 3D environment',
-      category: 'Graphics Engineering',
       year: '2024',
       description:
-        'Interactive vertex displacement shaders reacting to mouse velocity and device orientation with 60 FPS performance budgets across all devices.',
-      techStack: ['Three.js', 'GLSL', 'Vite', 'TypeScript'],
-      status: 'Exploration' as const,
-      githubUrl: 'https://github.com',
+        'A creative web application concept for pairs to capture and match poses and compose memorable moments into a photo-strip experience using client-side Canvas API rendering.',
+      techStack: ['HTML5', 'CSS3', 'JavaScript', 'Canvas API', 'Responsive Design'],
+      status: 'Concept Demo',
+      githubUrl: 'https://github.com/atifvirani/DuoSync',
+      featured: true,
+      displayOrder: 3,
     },
   ],
   skills: [
     {
-      category: 'Real-Time 3D & Graphics',
-      description: 'Hardware-accelerated rendering, procedural visuals, and custom shader pipelines.',
-      skills: ['Three.js', 'WebGL', 'GLSL Shaders', 'Particle Systems', 'Buffer Geometry', 'Math & Vectors'],
+      category: 'Languages & Web Fundamentals',
+      description: 'Core programming languages and web standards.',
+      skills: ['JavaScript', 'TypeScript', 'Python', 'HTML5', 'CSS3'],
     },
     {
-      category: 'Creative Motion & Timelines',
-      description: 'Cinematic timelines, scroll triggers, and fluid choreography with physical precision.',
-      skills: ['GSAP Core', 'ScrollTrigger', 'Framer Motion', 'Micro-interactions', 'Spring Physics', 'Easing Curves'],
+      category: 'Frontend & Creative Development',
+      description: 'Component architecture, UI/UX design, motion choreography, and spatial computing.',
+      skills: ['React', 'Vite', 'Tailwind CSS', 'Framer Motion', 'Three.js', 'React Three Fiber', 'MediaPipe', 'UI/UX Design'],
     },
     {
-      category: 'Frontend Engineering',
-      description: 'Robust component architecture with strict type safety and clean system design.',
-      skills: ['React 19', 'TypeScript', 'Vite', 'Tailwind CSS v4', 'State Machines', 'Clean Architecture'],
+      category: 'Backend, Data & Architecture',
+      description: 'API development, relational & client-side databases, and local-first architecture.',
+      skills: ['Node.js', 'Express', 'Supabase', 'PostgreSQL', 'IndexedDB', 'Dexie.js', 'Local-First Systems', 'REST API Development'],
     },
     {
-      category: 'Performance & Tooling',
-      description: 'Sub-second loading, 60fps rendering, and optimized GPU memory management.',
-      skills: ['GPU Memory Mgmt', 'Asset Optimization', 'Bundle Splitting', 'Responsive Design', 'Git Workflow'],
+      category: 'Mobile & Desktop',
+      description: 'Native mobile packaging and cross-platform desktop application systems.',
+      skills: ['Capacitor', 'Electron'],
+    },
+    {
+      category: 'AI, Infrastructure & Systems',
+      description: 'Local LLM runtimes, containerization, security environments, and self-hosted automation.',
+      skills: ['Ollama', 'Docker', 'Kali Linux', 'Self-Hosted Automation', 'Containerized Relays'],
     },
   ],
 }
