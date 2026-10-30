@@ -6,6 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
+    "build:render": "tsc -b && vite build && cd server && npm install",
+    "start": "node server/src/index.js",
     "lint": "oxlint",
     "preview": "vite preview"
   },

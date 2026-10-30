@@ -1,0 +1,27 @@
+services:
+  - type: web
+    name: atif-portfolio
+    runtime: node
+    plan: free
+    region: singapore
+    buildCommand: npm run build:render
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: JWT_SECRET
+        generateValue: true
+      - key: EMAIL_HOST
+        value: smtp-relay.brevo.com
+      - key: EMAIL_PORT
+        value: "587"
+      - key: EMAIL_USER
+        value: c0a6c9001@smtp-brevo.com
+      - key: EMAIL_PASS
+        sync: false
+      - key: EMAIL_FROM
+        value: c0a6c9001@smtp-brevo.com
+      - key: RECEIVER_EMAIL
+        value: c0a6c9001@smtp-brevo.com
+      - key: FRONTEND_ORIGIN
+        value: "*"
