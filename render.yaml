@@ -20,8 +20,8 @@ services:
       - key: EMAIL_PASS
         sync: false
       - key: EMAIL_FROM
-        value: c0a6c9001@smtp-brevo.com
+        value: mohammedatif.dev@gmail.com
       - key: RECEIVER_EMAIL
-        value: c0a6c9001@smtp-brevo.com
+        value: mohammedatif.dev@gmail.com
       - key: FRONTEND_ORIGIN
         value: "*"

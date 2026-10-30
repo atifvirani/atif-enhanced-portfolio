@@ -68,7 +68,7 @@ export const PORTFOLIO_CONFIG: PortfolioConfigType = {
     ],
     location: 'Cuttack, Odisha, India',
     timezone: 'UTC+5:30',
-    email: '', // Configurable via RECEIVER_EMAIL; GitHub is primary direct channel
+    email: 'mohammedatif.dev@gmail.com',
     responsibility: 'CTO & Lead Architect at BaseCamp Education in Cuttack',
     education: 'Stewart Science Higher Secondary School, Class 12 (PCMB + IT). Dedicated preparation for the JEE Main examination.',
     portraitUrl: '/images/atif-particle-reference.png',
