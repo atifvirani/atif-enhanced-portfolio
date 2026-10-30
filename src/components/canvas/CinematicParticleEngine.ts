@@ -733,7 +733,8 @@ export class CinematicParticleEngine {
     }
 
     if (prevIsMobile !== undefined && prevIsMobile !== this.projection.isMobile && this.geometry) {
-      this.targets = await generateAllParticleTargets(this.particleCount, this.projection)
+      const activeCount = (this.geometry.getAttribute('position') as THREE.BufferAttribute)?.count || this.particleCount
+      this.targets = await generateAllParticleTargets(activeCount, this.projection)
 
       const portraitPosAttr = this.geometry.getAttribute('aPortraitPos') as THREE.BufferAttribute | undefined
       const portraitBrightAttr = this.geometry.getAttribute('aPortraitBrightness') as THREE.BufferAttribute | undefined

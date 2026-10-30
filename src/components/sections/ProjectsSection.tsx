@@ -19,7 +19,7 @@ export function ProjectsSection() {
   // Detect touch / narrow screens
   useEffect(() => {
     const checkMobile = () => {
-      setIsMobile(window.innerWidth < 1024 || window.matchMedia('(hover: none)').matches)
+      setIsMobile(window.innerWidth < 1024)
     }
     checkMobile()
     window.addEventListener('resize', checkMobile, { passive: true })
@@ -28,22 +28,21 @@ export function ProjectsSection() {
 
   // Setup GSAP Pinned Curved Horizontal Gallery on Desktop
   useEffect(() => {
-    if (isMobile) return
-    if (!projects || projects.length === 0) return
-
     const section = sectionRef.current
     const pinContainer = pinContainerRef.current
     const track = trackRef.current
 
-    if (!section || !pinContainer || !track) return
+    if (isMobile || !projects || projects.length === 0 || !section || !pinContainer || !track) {
+      if (track) gsap.set(track, { clearProps: 'transform' })
+      if (pinContainer) gsap.set(pinContainer, { clearProps: 'all' })
+      return
+    }
+
+    let ctx: gsap.Context | null = null
 
     // Allow layout to settle before calculating bounding sizes
     const initTimer = setTimeout(() => {
-      const trackWidth = track.scrollWidth
-      const windowWidth = window.innerWidth
-      const horizontalDistance = Math.max(0, trackWidth - windowWidth + 140)
-
-      const ctx = gsap.context(() => {
+      ctx = gsap.context(() => {
         // Tile cards selection
         const cards = track.querySelectorAll<HTMLElement>('.curved-tile-wrapper')
 
@@ -71,10 +70,15 @@ export function ProjectsSection() {
         )
 
         // Main Scrubbed Pin ScrollTrigger
-        const mainScrollTrigger = ScrollTrigger.create({
+        ScrollTrigger.create({
           trigger: section,
           start: 'top top',
-          end: () => `+=${Math.max(window.innerHeight * 2, horizontalDistance * 1.1)}`,
+          end: () => {
+            const trackWidth = track.scrollWidth || 1800
+            const windowWidth = window.innerWidth || 1200
+            const horizontalDistance = Math.max(0, trackWidth - windowWidth + 160)
+            return `+=${Math.max(window.innerHeight * 1.8, horizontalDistance * 1.15)}`
+          },
           pin: pinContainer,
           anticipatePin: 1,
           scrub: 0.65,
@@ -82,6 +86,10 @@ export function ProjectsSection() {
           onUpdate: (self) => {
             const progress = self.progress
             setScrollProgress(progress)
+
+            const trackWidth = track.scrollWidth || 1800
+            const windowWidth = window.innerWidth || 1200
+            const horizontalDistance = Math.max(0, trackWidth - windowWidth + 160)
 
             // Translate main horizontal project track
             const currentX = -progress * horizontalDistance
@@ -120,23 +128,29 @@ export function ProjectsSection() {
 
         // Refresh ScrollTrigger to recalculate exact offsets
         ScrollTrigger.refresh()
-
-        return () => {
-          mainScrollTrigger.kill()
-        }
       }, section)
-
-      return () => ctx.revert()
     }, 120)
 
-    return () => clearTimeout(initTimer)
+    return () => {
+      clearTimeout(initTimer)
+      if (ctx) {
+        ctx.revert()
+      }
+      ScrollTrigger.getAll().forEach((st) => {
+        if (st.trigger === section || st.vars.trigger === section) {
+          st.kill(true)
+        }
+      })
+      if (track) gsap.set(track, { clearProps: 'transform' })
+      if (pinContainer) gsap.set(pinContainer, { clearProps: 'all' })
+    }
   }, [isMobile, projects])
 
   return (
     <section
       id="works"
       ref={sectionRef}
-      className="relative scroll-mt-24 sm:scroll-mt-28 w-full bg-black text-white border-t border-white/[0.08]"
+      className="relative scroll-mt-24 sm:scroll-mt-28 w-full bg-black text-white border-t border-white/[0.08] overflow-hidden"
     >
       {/* Pinned Viewport Container */}
       <div
@@ -293,7 +307,7 @@ export function ProjectsSection() {
               <span>{projects.length} SELECTED WORKS</span>
             </div>
 
-            <div className="flex gap-6 overflow-x-auto snap-x snap-mandatory pb-6 -mx-6 px-6 no-scrollbar">
+            <div className="flex gap-6 overflow-x-auto snap-x snap-mandatory pb-6 -mx-4 px-4 sm:-mx-6 sm:px-6 no-scrollbar touch-pan-x overscroll-x-contain">
               {projects.map((project, index) => (
                 <article
                   key={project.id}

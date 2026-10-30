@@ -488,8 +488,8 @@ async function generatePortraitPoints(
       el.src = imageSrc
     })
 
-    const naturalW = img.naturalWidth || 944
-    const naturalH = img.naturalHeight || 1050
+    const naturalW = Math.max(10, img.naturalWidth || 944)
+    const naturalH = Math.max(10, img.naturalHeight || 1050)
 
     const canvas = document.createElement('canvas')
     const ctx = canvas.getContext('2d', { willReadFrequently: true })
@@ -501,7 +501,12 @@ async function generatePortraitPoints(
     ctx.clearRect(0, 0, naturalW, naturalH)
     ctx.drawImage(img, 0, 0, naturalW, naturalH)
 
-    const imgData = ctx.getImageData(0, 0, naturalW, naturalH)
+    let imgData: ImageData
+    try {
+      imgData = ctx.getImageData(0, 0, naturalW, naturalH)
+    } catch {
+      throw new Error('Failed to sample image data')
+    }
     const data = imgData.data
 
     interface CandidatePoint {

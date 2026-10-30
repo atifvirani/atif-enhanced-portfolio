@@ -71,6 +71,8 @@ export function AsciiWordmarkCanvas({
 
     const rect = container.getBoundingClientRect()
     const width = Math.floor(rect.width)
+    if (width <= 20) return // Skip if container is zero-width or not yet laid out
+
     // Adaptive height based on available width
     const height = width < 480 ? 280 : width < 768 ? 340 : 420
     const dpr = Math.min(window.devicePixelRatio || 1, 2)
@@ -93,14 +95,15 @@ export function AsciiWordmarkCanvas({
 
     const cols = Math.floor(width / cellWidth)
     const rows = Math.floor(height / cellHeight)
+    if (cols <= 0 || rows <= 0) return
 
     const gridOffsetX = (width - cols * cellWidth) / 2 + cellWidth / 2
     const gridOffsetY = (height - rows * cellHeight) / 2 + cellHeight / 2
 
     // 1. Render wordmark to offscreen canvas
     const offscreen = document.createElement('canvas')
-    offscreen.width = width
-    offscreen.height = height
+    offscreen.width = Math.max(1, width)
+    offscreen.height = Math.max(1, height)
     const offCtx = offscreen.getContext('2d', { willReadFrequently: true })
     if (!offCtx) return
 
@@ -126,7 +129,12 @@ export function AsciiWordmarkCanvas({
     // Render wordmark with deliberate letter spacing
     offCtx.fillText(wordmark, width / 2, height / 2 + (isMobile ? 2 : 4))
 
-    const imgData = offCtx.getImageData(0, 0, width, height)
+    let imgData: ImageData
+    try {
+      imgData = offCtx.getImageData(0, 0, width, height)
+    } catch {
+      return // Guard against transient zero-dimension during DOM reflow
+    }
     const pixels = imgData.data
     const finalMeasured = offCtx.measureText(wordmark).width
     const wordmarkLeft = (width - finalMeasured) / 2
@@ -223,14 +231,24 @@ export function AsciiWordmarkCanvas({
       window.matchMedia('(prefers-reduced-motion: reduce)').matches
     stateRef.current.isReducedMotion = isReduced
 
-    rebuildGrid()
+    const container = containerRef.current
+    let resizeObserver: ResizeObserver | null = null
 
-    const handleResize = () => {
+    if (container && typeof ResizeObserver !== 'undefined') {
+      resizeObserver = new ResizeObserver(() => {
+        rebuildGrid()
+      })
+      resizeObserver.observe(container)
+    } else {
       rebuildGrid()
+      const handleResize = () => rebuildGrid()
+      window.addEventListener('resize', handleResize, { passive: true })
+      return () => window.removeEventListener('resize', handleResize)
     }
 
-    window.addEventListener('resize', handleResize, { passive: true })
-    return () => window.removeEventListener('resize', handleResize)
+    return () => {
+      resizeObserver?.disconnect()
+    }
   }, [rebuildGrid])
 
   // Core Animation Loop with Spring-Physics and Dynamic Rendering
@@ -245,7 +263,7 @@ export function AsciiWordmarkCanvas({
 
     const render = () => {
       const state = stateRef.current
-      if (!state.isVisible) {
+      if (!state.isVisible || state.width <= 0 || state.height <= 0 || state.cells.length === 0) {
         state.animId = requestAnimationFrame(render)
         return
       }

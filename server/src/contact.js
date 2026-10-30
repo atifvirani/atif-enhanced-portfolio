@@ -34,6 +34,41 @@ function checkRateLimit(ip) {
 // Email format regex (RFC 5322 compatible simplification)
 const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/
 
+let cachedTransporter = null
+
+function getTransporter(emailUser, emailPass) {
+  if (cachedTransporter) return cachedTransporter
+
+  const transportConfig = process.env.EMAIL_HOST
+    ? {
+        host: process.env.EMAIL_HOST,
+        port: Number(process.env.EMAIL_PORT) || 587,
+        secure: process.env.EMAIL_SECURE === 'true' || Number(process.env.EMAIL_PORT) === 465,
+        pool: true,
+        maxConnections: 3,
+        maxMessages: 100,
+        rateDelta: 1000,
+        rateLimit: 5,
+        connectionTimeout: 10000,
+        greetingTimeout: 6000,
+        socketTimeout: 15000,
+        auth: {
+          user: emailUser,
+          pass: emailPass,
+        },
+      }
+    : {
+        service: process.env.EMAIL_SERVICE || 'gmail',
+        auth: {
+          user: emailUser,
+          pass: emailPass,
+        },
+      }
+
+  cachedTransporter = nodemailer.createTransport(transportConfig)
+  return cachedTransporter
+}
+
 export async function handleContactSubmission(req, res) {
   const clientIp = req.headers['x-forwarded-for'] || req.socket.remoteAddress || '127.0.0.1'
 
@@ -107,25 +142,7 @@ export async function handleContactSubmission(req, res) {
   }
 
   try {
-    const transportConfig = process.env.EMAIL_HOST
-      ? {
-          host: process.env.EMAIL_HOST,
-          port: Number(process.env.EMAIL_PORT) || 587,
-          secure: process.env.EMAIL_SECURE === 'true' || Number(process.env.EMAIL_PORT) === 465,
-          auth: {
-            user: emailUser,
-            pass: emailPass,
-          },
-        }
-      : {
-          service: process.env.EMAIL_SERVICE || 'gmail',
-          auth: {
-            user: emailUser,
-            pass: emailPass,
-          },
-        }
-
-    const transporter = nodemailer.createTransport(transportConfig)
+    const transporter = getTransporter(emailUser, emailPass)
 
     const safeName = escapeHtml(trimmedName)
     const safeEmail = escapeHtml(trimmedEmail)
@@ -170,9 +187,12 @@ export async function handleContactSubmission(req, res) {
       message: 'Your message has been sent successfully. I will get back to you shortly.',
     })
   } catch (error) {
+    cachedTransporter = null // reset cached transporter on connection failure
     console.error('[Contact Backend] Failed to dispatch email:', error.message)
+    if (error.response) console.error('[Contact Backend] SMTP Response:', error.response)
+
     return res.status(500).json({
-      error: 'Failed to deliver message due to an internal mail service error. Please try reaching out directly via GitHub.',
+      error: error.message || 'Failed to deliver message due to an internal mail service error. Please try reaching out directly via GitHub.',
     })
   }
 }

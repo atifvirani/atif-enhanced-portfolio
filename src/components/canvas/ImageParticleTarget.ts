@@ -67,7 +67,12 @@ export async function generateImageParticles(
     ctx.fillRect(0, 0, sampleWidth, sampleHeight)
     ctx.drawImage(img, offsetX, offsetY, drawWidth, drawHeight)
 
-    const imgData = ctx.getImageData(0, 0, sampleWidth, sampleHeight)
+    let imgData: ImageData
+    try {
+      imgData = ctx.getImageData(0, 0, sampleWidth, sampleHeight)
+    } catch {
+      throw new Error('Failed to sample image canvas data')
+    }
     const data = imgData.data
 
     const candidatePoints: Array<{ x: number; y: number; weight: number }> = []

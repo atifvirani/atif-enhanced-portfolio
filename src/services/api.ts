@@ -1,7 +1,19 @@
 import { PORTFOLIO_CONFIG } from '../config/portfolioConfig'
 import type { ProjectData } from '../config/portfolioConfig'
 
-const API_BASE = (import.meta.env.VITE_API_URL as string | undefined)?.replace(/\/$/, '') || '/api'
+function getApiBase(): string {
+  const envUrl = (import.meta.env.VITE_API_URL as string | undefined)?.replace(/\/$/, '')
+  if (typeof window !== 'undefined') {
+    // If env URL points to same host or is relative/empty, always use relative '/api'
+    if (!envUrl || envUrl.includes(window.location.hostname)) {
+      return '/api'
+    }
+    return envUrl
+  }
+  return envUrl || '/api'
+}
+
+const API_BASE = getApiBase()
 
 export interface ApiProject {
   id: string
@@ -101,23 +113,36 @@ export const api = {
     if (!res.ok) throw new Error(resData.error || `Failed to update ${key}`)
   },
 
-  // Public: Contact form submission
+  // Public: Contact form submission with timeout protection
   async submitContact(payload: { name: string; email: string; message: string; website?: string }): Promise<{ success: boolean; message?: string; error?: string }> {
+    const controller = typeof AbortController !== 'undefined' ? new AbortController() : null
+    const timeoutId = controller ? setTimeout(() => controller.abort(), 14000) : null
+
     try {
       const res = await fetch(`${API_BASE}/contact`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
+        signal: controller?.signal,
       })
+      if (timeoutId) clearTimeout(timeoutId)
+
       const data = await res.json()
       if (!res.ok) {
         return { success: false, error: data.error || 'Failed to submit contact message' }
       }
       return { success: true, message: data.message }
-    } catch {
+    } catch (err: any) {
+      if (timeoutId) clearTimeout(timeoutId)
+      if (err?.name === 'AbortError') {
+        return {
+          success: false,
+          error: 'Connection timed out. The mail server took longer than expected. Please retry or reach out via GitHub.',
+        }
+      }
       return {
         success: false,
-        error: 'Network error: could not connect to contact server. Please reach out directly on GitHub.',
+        error: err?.message || 'Network error: could not connect to contact server. Please reach out directly on GitHub.',
       }
     }
   },
