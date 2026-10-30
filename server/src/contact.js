@@ -39,19 +39,25 @@ let cachedTransporter = null
 function getTransporter(emailUser, emailPass) {
   if (cachedTransporter) return cachedTransporter
 
+  // Port 2525 is Brevo's cloud-optimized alternate port that bypasses Render/cloud firewall blocks on 587/465/25
+  const host = process.env.EMAIL_HOST || 'smtp-relay.brevo.com'
+  const isBrevo = host.includes('brevo')
+  const defaultPort = isBrevo ? 2525 : 587
+  const port = Number(process.env.EMAIL_PORT) || defaultPort
+
   const transportConfig = process.env.EMAIL_HOST
     ? {
-        host: process.env.EMAIL_HOST,
-        port: Number(process.env.EMAIL_PORT) || 587,
-        secure: process.env.EMAIL_SECURE === 'true' || Number(process.env.EMAIL_PORT) === 465,
+        host,
+        port,
+        secure: process.env.EMAIL_SECURE === 'true' || port === 465,
         pool: true,
         maxConnections: 3,
         maxMessages: 100,
         rateDelta: 1000,
         rateLimit: 5,
-        connectionTimeout: 10000,
+        connectionTimeout: 8000,
         greetingTimeout: 6000,
-        socketTimeout: 15000,
+        socketTimeout: 12000,
         auth: {
           user: emailUser,
           pass: emailPass,
