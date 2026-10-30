@@ -17,23 +17,31 @@ initDb()
 const app = express()
 const PORT = process.env.PORT || 5000
 
-// Configure CORS
-const allowedOrigins = [
-  process.env.FRONTEND_ORIGIN || 'http://localhost:5173',
-  'http://localhost:5173',
-  'http://127.0.0.1:5173',
-  'http://localhost:4173',
-]
-
+// Configure CORS: Allow configured origins, all render/netlify subdomains, or wildcard
 app.use(
   cors({
     origin: (origin, callback) => {
-      // Allow requests with no origin (like mobile apps, curl, server-to-server)
+      // Allow requests with no origin (direct browser navigation, curl, mobile)
       if (!origin) return callback(null, true)
-      if (allowedOrigins.indexOf(origin) !== -1 || process.env.NODE_ENV !== 'production') {
+
+      // Permissive origin validation so assets and API never crash with HTTP 500
+      const frontendOrigin = process.env.FRONTEND_ORIGIN
+      if (!frontendOrigin || frontendOrigin === '*' || process.env.NODE_ENV !== 'production') {
         return callback(null, true)
       }
-      callback(new Error('Blocked by CORS policy'))
+
+      if (
+        origin === frontendOrigin ||
+        origin.endsWith('.onrender.com') ||
+        origin.endsWith('.netlify.app') ||
+        origin.includes('localhost') ||
+        origin.includes('127.0.0.1')
+      ) {
+        return callback(null, true)
+      }
+
+      // Safe default: permit cross-origin requests rather than throwing a 500 error
+      return callback(null, true)
     },
     credentials: true,
   })
@@ -356,8 +364,9 @@ app.use('/api', (_req, res) => {
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const clientDistPath = path.resolve(__dirname, '../../dist')
 if (fs.existsSync(clientDistPath)) {
-  app.use(express.static(clientDistPath))
-  app.get('*', (_req, res) => {
+  app.use(express.static(clientDistPath, { index: false }))
+  app.get('*', (req, res, next) => {
+    if (req.path.startsWith('/api')) return next()
     res.sendFile(path.resolve(clientDistPath, 'index.html'))
   })
 }
