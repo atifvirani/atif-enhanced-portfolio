@@ -6,29 +6,29 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
-    "build:render": "tsc -b && vite build && cd server && npm install",
+    "build:render": "npm install --include=dev && tsc -b && vite build && cd server && npm install",
     "start": "node server/src/index.js",
     "lint": "oxlint",
     "preview": "vite preview"
   },
   "dependencies": {
-    "framer-motion": "^14.6.0",
-    "gsap": "^3.15.0",
-    "lucide-react": "^1.61.0",
-    "react": "^19.3.1",
-    "react-dom": "^19.3.1",
-    "three": "^0.186.1"
-  },
-  "devDependencies": {
     "@tailwindcss/vite": "^4.3.3",
     "@types/node": "^24.19.2",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
     "@types/three": "^0.186.0",
     "@vitejs/plugin-react": "^6.1.2",
-    "oxlint": "^1.88.0",
+    "framer-motion": "^14.6.0",
+    "gsap": "^3.15.0",
+    "lucide-react": "^1.61.0",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
     "tailwindcss": "^4.3.3",
+    "three": "^0.186.1",
     "typescript": "~6.0.3",
     "vite": "^8.3.4"
+  },
+  "devDependencies": {
+    "oxlint": "^1.88.0"
   }
 }
